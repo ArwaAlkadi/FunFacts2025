@@ -24,7 +24,7 @@ struct funFactPage: View {
                             .frame(width: 60, height: 60)
                     }
 
-                    Text("Hello, Meshael!")
+                    Text("Hello, Meshael")
                         .foregroundStyle(.factBeige)
                         .font(.system(size: 21, weight: .bold))
 
