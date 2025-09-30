@@ -41,7 +41,7 @@ struct funFactPage: View {
                                 Image("coins")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                Text("10")
+                                Text("0")
                             }
                         }
                 }
