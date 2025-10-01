@@ -4,11 +4,13 @@ import SwiftUI
 
 // MARK: - Component 2: Profile Image and '+' Button (Final Styling)
 struct AvatarWithPlusButton: View {
+    @EnvironmentObject var state: AppState
+
     var body: some View {
         // ZStack is used only to contain the avatar and its overlay
         ZStack {
             // Owl Image - now handles its own clipping and shadow
-            Image("avatarOwl")
+            Image("\(state.avatar)")
                 .resizable()
                 .scaledToFill()
                 .frame(width: 136, height: 230)
@@ -73,7 +75,8 @@ struct ProfileEditView: View {
 struct SignupView: View {
     @State private var nameInput: String = ""
     @State private var coinCount: Int = 0
-    
+    @EnvironmentObject var state: AppState
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -124,6 +127,9 @@ struct SignupView: View {
                     
                     // MARK: - Save Button
                     Button(action: {
+                        
+                        state.name = nameInput
+                        UserDefaults.standard.set(nameInput, forKey: "name")
                         //  Add your save logic here ***
                         print("Name saved: \(nameInput)")
                     }) {
@@ -150,4 +156,5 @@ struct SignupView: View {
 // MARK: - Preview
 #Preview {
     SignupView()
+            .environmentObject(makeStateForPreview(name: "Sara", avatar: "avatarEagle", interests: "life style", coins: 10))
 }
