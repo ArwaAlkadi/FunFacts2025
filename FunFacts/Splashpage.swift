@@ -14,7 +14,7 @@ struct Splashpage: View {
     
     var body: some View {
         if goNext {
-            ContentView()
+            OnboardingPage_()
         } else {
             ZStack {
                 
