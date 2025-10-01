@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "walk.png",
+      "filename" : "Human.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Human@2x.pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Human@3x.pdf",
       "idiom" : "universal",
       "scale" : "3x"
     }
