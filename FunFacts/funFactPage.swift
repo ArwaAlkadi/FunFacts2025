@@ -5,10 +5,16 @@
 //  Created by Arwa Alkadi on 30/09/2025.
 //
 
+
+// اضيفي الارراي للفاكت ودالة ترجيع الفاكت
+
 import SwiftUI
 
 struct funFactPage: View {
+    
+    @EnvironmentObject var state: AppState
     @State var currentFact: String = "0"
+    
     var body: some View {
         ZStack {
             Color(.factOrange).ignoresSafeArea()
@@ -18,13 +24,13 @@ struct funFactPage: View {
 
                 HStack {
                     NavigationLink(destination: profilePage()) {
-                        Image("avatarOwl")
+                        Image("\(state.avatar)")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 60, height: 60)
                     }
 
-                    Text("Hello, Meshael")
+                    Text("Hello, \(state.name)")
                         .foregroundStyle(.factBeige)
                         .font(.system(size: 21, weight: .bold))
 
@@ -41,7 +47,7 @@ struct funFactPage: View {
                                 Image("coins")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                Text("0")
+                                Text("\(state.coins)")
                             }
                         }
                 }
@@ -91,6 +97,11 @@ struct funFactPage: View {
                                     .font(.system(size: 18, weight: .bold))
 
                             }
+                            
+                            .simultaneousGesture(TapGesture().onEnded {
+                                state.coins += 1
+                                UserDefaults.standard.set(state.coins, forKey: "coins")
+                            })
 
                             }
 
@@ -103,8 +114,12 @@ struct funFactPage: View {
     }
 }
 
+
+
+
 #Preview {
     NavigationStack {
         funFactPage()
+            .environmentObject(makeStateForPreview(name: "Arwa", avatar: "avatarEagle", interests: "life style", coins: 10))
     }
 }

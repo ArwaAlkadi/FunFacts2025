@@ -5,12 +5,14 @@
 //  Created by Arwa Alkadi on 30/09/2025.
 //
 
+//اضيفي الداتا للصفحة هذي وعدلي البريفيو حقها
 
 import SwiftUI
 
 
 struct profilePage: View {
 
+    
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -34,20 +36,17 @@ struct profilePage: View {
                     }
 
                     Spacer()
-
-                    Button {
-
-                    } label: {
+                    
+                    NavigationLink(destination: EditChildProfileView()) {
                         HStack {
                             Text("Edit")
                                 .foregroundStyle(Color(.factBeige))
-                                .bold(true)
+                                .bold()
 
                             Image(systemName: "pencil")
                                 .foregroundStyle(Color(.factBeige))
-                                .bold(true)
+                                .bold()
                         }
-
                     }
 
                 }
