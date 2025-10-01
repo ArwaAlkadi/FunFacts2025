@@ -5,6 +5,12 @@
 //  Created by Arwa Alkadi on 01/10/2025.
 //
 
+/*
+🚨 Team Note:
+ Call this function inside your Preview only.
+it Used to initialize AppState class during your SwiftUI Preview.
+ */
+
 import SwiftUI
 
 func makeStateForPreview (name: String = "",

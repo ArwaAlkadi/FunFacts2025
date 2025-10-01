@@ -6,8 +6,8 @@
 //
 
 /*
- 💡 Reminder:
- Add this line in your Views if you need to access the shared/global data (name, avatar, coins, interests):
+ 🚨 Team Note:
+ Add this line in your Views if you need to access or add the data (name, avatar, coins, interests):
 @EnvironmentObject var state: AppState
  */
 
