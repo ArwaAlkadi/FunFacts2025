@@ -9,7 +9,15 @@
 🚨 Team Note:
  Call this function inside your Preview only.
 it Used to initialize AppState class during your SwiftUI Preview.
+ 
+ Example
+ #Preview {
+         ContentView()
+             .environmentObject(makeStateForPreview(name: "Sara", avatar: "avatarEagle", interests: "life style", coins: 10))
+ }
  */
+
+
 
 import SwiftUI
 
