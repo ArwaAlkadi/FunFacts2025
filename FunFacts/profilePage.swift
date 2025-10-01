@@ -135,5 +135,5 @@ struct profilePage: View {
 
 #Preview {
     profilePage()
-        .environmentObject(makeStateForPreview(name: "Sara", avatar: "avatarEagle", interests: "life style", coins: 10))
+        .environmentObject(AppState())
 }

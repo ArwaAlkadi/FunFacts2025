@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct FunFactsApp: App {
+    @StateObject private var state = AppState()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                Splashpage()
+            }
+                .environmentObject(state)
         }
     }
 }

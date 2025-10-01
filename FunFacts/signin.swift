@@ -156,5 +156,5 @@ struct SignupView: View {
 // MARK: - Preview
 #Preview {
     SignupView()
-            .environmentObject(makeStateForPreview(name: "Sara", avatar: "avatarEagle", interests: "life style", coins: 10))
+        .environmentObject(AppState())
 }
