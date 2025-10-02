@@ -35,6 +35,7 @@ struct OnboardingPage_: View {
                 HStack {
                     Spacer()
                     Button("Skip") {
+                     
                         currentPage = pages.count - 1
                     }
                     .underline()
@@ -42,7 +43,7 @@ struct OnboardingPage_: View {
                     .padding(.horizontal, 25)
                 }
                 
-                Spacer()
+                //Spacer()
                 
                 //  Swipeable pages
                 TabView(selection: $currentPage) {
@@ -51,10 +52,10 @@ struct OnboardingPage_: View {
                             Image(pages[i].image)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 300)
+                                .frame(height: 400)
                             
                             Text(pages[i].text)
-                                .font(.system(size: 21, weight: .bold))
+                                .font(.system(size: 21 ,weight:.medium))
                                 .multilineTextAlignment(.center)
                                 .padding()
                         }
@@ -69,7 +70,7 @@ struct OnboardingPage_: View {
                         if i == currentPage {
                             Capsule()
                                 .fill(Color("factGreen"))
-                                .frame(width: 20, height: 8)
+                                .frame(width: 25, height: 8)
                         } else {
                             Circle()
                                 .fill(Color.gray.opacity(0.5))
@@ -77,9 +78,9 @@ struct OnboardingPage_: View {
                         }
                     }
                 }
-                .padding(.top, 20)
+                .padding(.horizontal, 20)
                 
-                Spacer()
+                 Spacer()
                 
                 // Next button
                 HStack {
@@ -91,14 +92,14 @@ struct OnboardingPage_: View {
                             }
                         }
                     } label: {
-                        Image(systemName: "arrow.right")
+                        Image("Arrow")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(.white)
-                            .padding(20)
+                            .padding(18)
                             .background(Circle().fill(Color("factGreen")))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
+                            //.shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
                     }
-                    .padding(.horizontal, 15) // keeps arrow away from edge
+                    .padding(.horizontal, 25) // keeps arrow away from edge
                 }
             }
         }
