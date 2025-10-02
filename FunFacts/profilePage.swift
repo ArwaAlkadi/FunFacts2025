@@ -5,14 +5,14 @@
 //  Created by Arwa Alkadi on 30/09/2025.
 //
 
-//اضيفي الداتا للصفحة هذي وعدلي البريفيو حقها
+// عدلي ايقونة الانترست وخليها تتغير على حسب الانترست
 
 import SwiftUI
 
 
 struct profilePage: View {
 
-    
+    @EnvironmentObject var state: AppState
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -69,7 +69,7 @@ struct profilePage: View {
             VStack {
 
                 ZStack {
-                    Image("avatarOwl")
+                    Image("\(state.avatar)")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 230, height: 230)
@@ -87,7 +87,7 @@ struct profilePage: View {
                                     Image("coins")
                                         .resizable()
                                         .frame(width: 20, height: 20)
-                                    Text("0")
+                                    Text("\(state.coins)")
                                 }
                             }
                     }
@@ -115,7 +115,7 @@ struct profilePage: View {
                             HStack {
                                 Image(systemName: "figure.walk")
                                     .font(Font.title2)
-                                Text("Human")
+                                Text("\(state.interests)")
                             }
                         }
 
@@ -135,4 +135,5 @@ struct profilePage: View {
 
 #Preview {
     profilePage()
+        .environmentObject(AppState())
 }

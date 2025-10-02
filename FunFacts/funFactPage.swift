@@ -5,15 +5,15 @@
 //  Created by Arwa Alkadi on 30/09/2025.
 //
 
-
-// اضيفي الارراي للفاكت ودالة ترجيع الفاكت
-
 import SwiftUI
 
 struct funFactPage: View {
     
     @EnvironmentObject var state: AppState
     @State var currentFact: String = "0"
+    var theFact: String {
+        factOfToday(for: state.interests)
+    }
     
     var body: some View {
         ZStack {
@@ -78,7 +78,7 @@ struct funFactPage: View {
                             .cornerRadius(15)
                             .shadow(radius: 10)
                             .overlay {
-                                Text("Bananas are berries… but strawberries are not!")
+                                Text(theFact)
                                     .font(.system(size: 21, weight: .regular))
                                     .padding(.horizontal)
                             }
@@ -120,6 +120,6 @@ struct funFactPage: View {
 #Preview {
     NavigationStack {
         funFactPage()
-            .environmentObject(makeStateForPreview(name: "Arwa", avatar: "avatarEagle", interests: "life style", coins: 10))
+            .environmentObject(AppState())
     }
 }
