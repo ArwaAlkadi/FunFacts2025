@@ -20,7 +20,7 @@ enum Interest: String, CaseIterable, Identifiable {
         switch self {
         case .random: return "Dice"        // asset
         case .human: return "Human"       // asset
-        case .nature: return "Leaf"       // asset
+        case .nature: return "leaf"       // asset
         case .lifestyle: return "Lifestyle" // asset
         }
     }
