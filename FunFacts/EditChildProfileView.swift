@@ -135,15 +135,13 @@ struct EditChildProfileView: View {
             ToolbarItem(placement: .principal) {
                 NavigationLink(destination: funFactPage()) {
                     HStack {
-                        Spacer(minLength: 250)
                        
                             Text("Cancel")
                                 .font(.headline)
                                 .foregroundColor(Color("factBeige"))
                             
-                            Image(systemName: "pencil")
-                                .foregroundStyle(Color(.factBeige))
-                                .bold()
+                        
+                        Spacer(minLength: 270)
                     }
                 }
             }
