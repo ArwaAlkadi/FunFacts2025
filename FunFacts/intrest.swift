@@ -120,7 +120,27 @@ struct InterestSelectionView: View {
             }
             .padding(.horizontal)
             .padding(.top, 20)
+            
         }
+         HStack {
+                            Text("Next")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 15)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .fill(Color.factGreen)
+                                )
+                                // Button darkens when disabled
+                                .opacity(selectedInterest != nil ? 1.0 : 0.4)
+                        }
+                        // Only enable the button if an interest is selected
+                        .disabled(selectedInterest == nil)
+                        .padding(.trailing, 20) // Spacing from the right edge
+                        .padding(.bottom, 30)
+                   
     }
 }
 
