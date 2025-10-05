@@ -137,7 +137,7 @@ struct EditChildProfileView: View {
                     HStack {
                         Spacer(minLength: 250)
                        
-                            Text("Unedit")
+                            Text("Cancel")
                                 .font(.headline)
                                 .foregroundColor(Color("factBeige"))
                             
