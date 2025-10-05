@@ -56,5 +56,8 @@ struct Splashpage: View {
 }
 
 #Preview {
-    Splashpage()
+    NavigationStack {
+        Splashpage()
+            .environmentObject(AppState())
+    }
 }

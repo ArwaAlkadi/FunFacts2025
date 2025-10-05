@@ -127,17 +127,24 @@ struct EditChildProfileView: View {
             .presentationDetents([.fraction(0.45), .large])
             .presentationDragIndicator(.visible)
         }
+        .navigationBarBackButtonHidden(true)
         .navigationTitle("Edit Profile")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            // Back button
-            ToolbarItem(placement: .cancellationAction) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "arrow.left")
-                        .font(.headline)
-                        .foregroundColor(Color("factBeige"))
+            
+            ToolbarItem(placement: .principal) {
+                NavigationLink(destination: funFactPage()) {
+                    HStack {
+                        Spacer(minLength: 250)
+                       
+                            Text("Unedit")
+                                .font(.headline)
+                                .foregroundColor(Color("factBeige"))
+                            
+                            Image(systemName: "pencil")
+                                .foregroundStyle(Color(.factBeige))
+                                .bold()
+                    }
                 }
             }
 

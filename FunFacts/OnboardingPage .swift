@@ -34,15 +34,15 @@ struct OnboardingPage_: View {
                 // Skip button
                 HStack {
                     Spacer()
-                    Button("Skip") {
-                     
-                        currentPage = pages.count - 1
+                    NavigationLink(destination: SignupView()) {
+                        Text("Skip")
+                         .underline()
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 25)
                     }
-                    .underline()
-                    .foregroundColor(.gray)
-                    .padding(.horizontal, 25)
                 }
                 
+               
                 //Spacer()
                 
                 //  Swipeable pages
@@ -106,6 +106,10 @@ struct OnboardingPage_: View {
     }
 }
 
+
 #Preview {
-    OnboardingPage_()
+    NavigationStack {
+        OnboardingPage_()
+            .environmentObject(AppState())
+    }
 }

@@ -21,40 +21,6 @@ struct profilePage: View {
                 .ignoresSafeArea(.all)
 
             VStack {
-                HStack {
-
-                    Button {
-                               dismiss()
-                    } label: {
-                        Circle()
-                              .fill(Color(.factBeige))
-                              .frame(width: 40, height: 40)
-                              .overlay {
-                                  Image(systemName: "arrow.backward")
-                                      .foregroundStyle(Color(.factOrange))
-                              }
-                    }
-
-                    Spacer()
-                    
-                    NavigationLink(destination: EditChildProfileView()) {
-                        HStack {
-                            Text("Edit")
-                                .foregroundStyle(Color(.factBeige))
-                                .bold()
-
-                            Image(systemName: "pencil")
-                                .foregroundStyle(Color(.factBeige))
-                                .bold()
-                        }
-                    }
-
-                }
-                .padding(20)
-                Spacer()
-            }
-
-            VStack {
                 Spacer()
 
 
@@ -69,7 +35,7 @@ struct profilePage: View {
             VStack {
 
                 ZStack {
-                    Image("\(state.avatar)")
+                    Image("avatarCamel")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 230, height: 230)
@@ -87,7 +53,7 @@ struct profilePage: View {
                                     Image("coins")
                                         .resizable()
                                         .frame(width: 20, height: 20)
-                                    Text("\(state.coins)")
+                                    Text("18")
                                 }
                             }
                     }
@@ -115,7 +81,7 @@ struct profilePage: View {
                             HStack {
                                 Image(systemName: "figure.walk")
                                     .font(Font.title2)
-                                Text("\(state.interests)")
+                                Text("Human")
                             }
                         }
 
@@ -127,13 +93,45 @@ struct profilePage: View {
 
         }
         .navigationBarBackButtonHidden(true)
+        .toolbar {
+            // Back button
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundStyle(.factOrange)
+                        .font(.headline)
+                        .foregroundColor(Color("factBeige"))
+                }
+            }
+
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Spacer(minLength: 240)
+                    
+                    NavigationLink(destination: EditChildProfileView()) {
+                        HStack {
+                            Text("Edit")
+                                .font(.headline)
+                                .foregroundColor(Color("factBeige"))
+                            
+                            Image(systemName: "pencil")
+                                .foregroundStyle(Color(.factBeige))
+                                .bold()
+                        }
+                    }
+                }
+               
+            }
+        }
     }
 }
 
 
-
-
 #Preview {
-    profilePage()
-        .environmentObject(AppState())
+    NavigationStack {
+        profilePage()
+            .environmentObject(AppState())
+    }
 }

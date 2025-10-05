@@ -35,15 +35,18 @@ struct InterestButton: View {
         }) {
             HStack(spacing: 20) {
                 
-                Image(item.assetName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .clipShape(Circle())
+                NavigationLink(destination: funFactPage()) {
+                    Image(item.assetName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                    
+                    Text(item.name)
+                        .font(.largeTitle)
+                        .fontWeight(.medium)
+                }
                 
-                Text(item.name)
-                    .font(.largeTitle)
-                    .fontWeight(.medium)
             }
             .foregroundColor(.white) // Text and icon color
             .frame(maxWidth: .infinity)
@@ -121,10 +124,14 @@ struct InterestSelectionView: View {
             .padding(.horizontal)
             .padding(.top, 20)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 // MARK: - Preview
 #Preview {
-    InterestSelectionView()
+    NavigationStack {
+        InterestSelectionView()
+            .environmentObject(AppState())
+    }
 }

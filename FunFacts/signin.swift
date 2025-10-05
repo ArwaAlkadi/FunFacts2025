@@ -10,7 +10,7 @@ struct AvatarWithPlusButton: View {
         // ZStack is used only to contain the avatar and its overlay
         ZStack {
             // Owl Image - now handles its own clipping and shadow
-            Image("\(state.avatar)")
+            Image("avatarCamel")
                 .resizable()
                 .scaledToFill()
                 .frame(width: 136, height: 230)
@@ -126,35 +126,52 @@ struct SignupView: View {
                     Spacer()
                     
                     // MARK: - Save Button
-                    Button(action: {
-                        
-                        state.name = nameInput
-                        UserDefaults.standard.set(nameInput, forKey: "name")
-                        //  Add your save logic here ***
-                        print("Name saved: \(nameInput)")
-                    }) {
-                        Text("Save")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.factBeige)
-                            .frame(width: 278, height: 48)
-                            .background(
-                                RoundedRectangle(cornerRadius: 15)
-                                    .fill(.factGreen)
-                                    .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
-                            )
+//                    Button(action: {
+//                        
+//                        state.name = nameInput
+//                        UserDefaults.standard.set(nameInput, forKey: "name")
+//                        //  Add your save logic here ***
+//                        print("Name saved: \(nameInput)")
+//                    }) {
+//                        Text("Save")
+//                            .font(.title2)
+//                            .fontWeight(.bold)
+//                            .foregroundColor(.factBeige)
+//                            .frame(width: 278, height: 48)
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 15)
+//                                    .fill(.factGreen)
+//                                    .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
+//                            )
+//                    }
+//                    .padding(.bottom, 120)
+                    
+           NavigationLink(destination: InterestSelectionView()) {
+               Text("Save")
+                   .font(.title2)
+                   .fontWeight(.bold)
+                   .foregroundColor(.factBeige)
+                   .frame(width: 278, height: 48)
+                   .background(
+                       RoundedRectangle(cornerRadius: 15)
+                           .fill(.factGreen)
+                           .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
+                   )
                     }
                     .padding(.bottom, 120)
                 }
             }
             // Hide the NavigationStack bar on the root view
             .navigationBarHidden(true)
+            
         }
     }
 }
 
 // MARK: - Preview
 #Preview {
-    SignupView()
-        .environmentObject(AppState())
+    NavigationStack {
+        SignupView()
+            .environmentObject(AppState())
+    }
 }

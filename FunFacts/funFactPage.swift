@@ -10,7 +10,7 @@ import SwiftUI
 struct funFactPage: View {
     
     @EnvironmentObject var state: AppState
-    @State var currentFact: String = "0"
+    @State var currentFact: String = "Bananas are berries… but strawberries are not!"
     var theFact: String {
         factOfToday(for: state.interests)
     }
@@ -24,13 +24,13 @@ struct funFactPage: View {
 
                 HStack {
                     NavigationLink(destination: profilePage()) {
-                        Image("\(state.avatar)")
+                        Image("avatarCamel")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 60, height: 60)
                     }
 
-                    Text("Hello, \(state.name)")
+                    Text("Hello, Mashael")
                         .foregroundStyle(.factBeige)
                         .font(.system(size: 21, weight: .bold))
 
@@ -47,7 +47,8 @@ struct funFactPage: View {
                                 Image("coins")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                Text("\(state.coins)")
+                                Text("18")
+                                    .foregroundStyle(Color(.factBlack))
                             }
                         }
                 }
@@ -59,7 +60,7 @@ struct funFactPage: View {
                         .frame(width: 400, height: 680)
                         .cornerRadius(40)
 
-                    VStack(spacing: 20) {
+                    VStack(spacing: 40) {
                         HStack(spacing: 5) {
                             Image("lamp")
                                 .resizable()
@@ -78,9 +79,10 @@ struct funFactPage: View {
                             .cornerRadius(15)
                             .shadow(radius: 10)
                             .overlay {
-                                Text(theFact)
+                                Text("Bananas are berries… but strawberries are not!")
                                     .font(.system(size: 21, weight: .regular))
                                     .padding(.horizontal)
+                                    .foregroundStyle(.factBlack)
                             }
 
                         HStack {
@@ -110,6 +112,8 @@ struct funFactPage: View {
                 }
             }
             .ignoresSafeArea(edges: .all)
+            .navigationBarBackButtonHidden(true)
+
         }
     }
 }
