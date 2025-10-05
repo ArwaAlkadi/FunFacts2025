@@ -25,10 +25,10 @@ struct Splashpage: View {
                 
             
                 if showLogo {
-                    Image("logo")
+                    Image("tree")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 160, height: 160)
+                        .frame(width: 230, height: 230)
                         .transition(.scale.combined(with: .opacity))
                 }
             }

@@ -181,10 +181,16 @@ struct EditChildProfileView: View {
                 }
                 .offset(x: -30, y: -12)
             }
-
-            Text("Coins: \(coinBalance)")
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(.secondary)
+            HStack(spacing: 1) {
+                Image("coins")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                
+                Text("\(coinBalance)")
+                    .font(.subheadline.weight(.medium)).padding(.top, 2)
+            }
+       
         }
         .padding(.top, 40)
     }
@@ -327,7 +333,7 @@ struct AvatarPickerSheet: View {
                 Text("Pick your avatar")
                     .font(.headline)
 
-                let columns = [GridItem(.adaptive(minimum: 82), spacing: 14)]
+                let columns = [GridItem(.adaptive(minimum: 110), spacing: 10)]
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 14) {
                         ForEach(avatars) { avatar in
@@ -340,6 +346,7 @@ struct AvatarPickerSheet: View {
                 HStack {
                     Button("Cancel") { dismiss() }
                         .padding(.leading,10)
+                        .foregroundColor(Color("factOrange"))
 
                     Spacer()
 
@@ -351,14 +358,27 @@ struct AvatarPickerSheet: View {
                         selected = chosen
                         dismiss()
                     }
-                    .buttonStyle(.borderedProminent)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .background(Color("factOrange"))
+                    .foregroundColor(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+
                 }
             }
             .padding(16)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Text("Coins: \(balance)")
-                        .font(.subheadline.weight(.medium))
+                    HStack(spacing: 1) {
+                        Image("coins")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+
+                        Text("\(balance)")
+                            .font(.subheadline.weight(.medium)).padding(.top, 2)
+                    }.padding(.trailing,10)
                 }
             }
         }
@@ -368,44 +388,57 @@ struct AvatarPickerSheet: View {
     @ViewBuilder
     private func avatarButton(_ avatar: Avatar) -> some View {
         let enough = balance >= avatar.cost || avatar.cost == 0
+
         Button {
             guard enough else { return }
             tempSelection = avatar
         } label: {
             VStack(spacing: 6) {
-                Circle()
-                    .fill(Color.clear)
-                    .frame(width: 74, height: 74)
-                    .overlay(
-                        Image(avatar.assetName)
-                            .resizable()
-                            .scaledToFit()
-                    )
-                    .overlay(
-                        Circle().stroke(
+                ZStack {
+                    Image(avatar.assetName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 110, height: 110)
+                        .clipShape(Circle())
+                        .opacity(enough ? 1 : 0.5)
+                    
+                    Circle()
+                        .stroke(
                             avatar == (tempSelection ?? selected)
                             ? Color.primary.opacity(0.7)
                             : Color.clear,
-                            lineWidth: 3
+                            lineWidth: 1
                         )
-                    )
-                    .overlay(lockOverlay(for: avatar))
+                        .frame(width: 100, height: 100)
+
+                    if avatar.cost > 0 && balance < avatar.cost {
+                        ZStack {
+                            Circle()
+                                .fill(Color.black.opacity(0.35))
+                            Image(systemName: "lock.fill")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 100, height: 100)
+                    }
+                }
+
+
                 Text(avatar.cost == 0 ? "Free" : "\(avatar.cost) Coins")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
         }
         .buttonStyle(.plain)
-        .opacity(enough ? 1 : 0.5)
     }
+
 
     @ViewBuilder
     private func lockOverlay(for avatar: Avatar) -> some View {
         if avatar.cost > 0 && balance < avatar.cost {
             ZStack {
-                Color.black.opacity(0.25)
                 Image(systemName: "lock.fill")
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.red)
             }
             .clipShape(Circle())
         } else {
