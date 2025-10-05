@@ -18,7 +18,6 @@ struct funFactPage: View {
     var body: some View {
         ZStack {
             Color(.factOrange).ignoresSafeArea()
-
             VStack {
                 Spacer()
 
@@ -47,7 +46,7 @@ struct funFactPage: View {
                                 Image("coins")
                                     .resizable()
                                     .frame(width: 20, height: 20)
-                                Text("18")
+                                Text("\(state.coins)")
                                     .foregroundStyle(Color(.factBlack))
                             }
                         }
