@@ -420,7 +420,7 @@ struct AvatarPickerSheet: View {
         EditChildProfileView(
             profile: ChildProfile(
                 name: "Meshael",
-                interest: .human,
+                interest: .nature,
                 avatar: allAvatars.first!
             ),
             coinBalance: 18

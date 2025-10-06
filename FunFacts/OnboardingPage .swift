@@ -21,11 +21,11 @@ struct OnboardingPage_: View {
     
     let pages: [OnboardingPage] = [
         OnboardingPage(image: "onboardingpage1",
-                       text: "Discover a new fun fact every single day!"),
+                       text: "Discover an interesting fact every day in just seconds!"),
         OnboardingPage(image: "onboardingpage2",
-                       text: "Choose your interests to get facts that matter to you!"),
+                       text: "Select your interests to receive facts that matter to you"),
         OnboardingPage(image: "onboardingpage3",
-                       text: "Start your journey with us today!")
+                       text: "Get one daily notification quick, useful, and fun to share!")
     ]
     
     var body: some View {
