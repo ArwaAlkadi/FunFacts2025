@@ -33,21 +33,21 @@ struct InterestButton: View {
                 selectedInterest = item // Select new interest
             }
         }) {
-            HStack(spacing: 20) {
-                
+           
                 NavigationLink(destination: funFactPage()) {
-                    Image(item.assetName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
+                    HStack (spacing: 20) {
+                        Image(item.assetName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 60, height: 60)
+                        
+                        Text(item.name)
+                            .font(.largeTitle)
+                            .fontWeight(.medium)
+                    }
                     
-                    Text(item.name)
-                        .font(.largeTitle)
-                        .fontWeight(.medium)
                 }
-                
-            }
+      
             .foregroundColor(.white) // Text and icon color
             .frame(maxWidth: .infinity)
             .padding(.vertical, 10)
@@ -100,10 +100,12 @@ struct InterestSelectionView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.factBlack)
                     .padding(.top, 56)
+                    .padding(.horizontal)
                 HStack(spacing: 5) {
                     Text("Choose your interest")
                         .font(.title3)
                         .foregroundColor(.factBlack)
+                        .padding(.horizontal)
                     
                     Text(selectionCountText) // Dynamic Counter
                         .font(.title3)

@@ -19,7 +19,7 @@ struct Splashpage: View {
             ZStack {
                 
                 Circle()
-                    .fill(Color("factOrange"))
+                    .fill(Color(UIColor(red: 0.98, green: 0.48, blue: 0.35, alpha: 1.0)))
                     .frame(width: circleSize, height: circleSize)
                     .ignoresSafeArea()
                 
