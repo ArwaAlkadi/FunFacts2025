@@ -21,7 +21,7 @@ func funFactNotification() {
 
             var time = DateComponents()
             time.hour = Calendar.current.component(.hour, from: Date())
-            time.minute = Calendar.current.component(.minute, from: Date()) + 1
+            time.minute = Calendar.current.component(.minute, from: Date()) + 3
             
             let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: true)
 

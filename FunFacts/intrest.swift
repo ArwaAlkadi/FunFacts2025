@@ -12,7 +12,7 @@ struct InterestItem: Identifiable {
 struct InterestButton: View {
     let item: InterestItem // Now uses InterestItem
     @Binding var selectedInterest: InterestItem?
-
+    @State private var isActive = false
 
     var isSelected: Bool {
         selectedInterest?.id == item.id
@@ -25,39 +25,49 @@ struct InterestButton: View {
     }
 
     var body: some View {
-        Button(action: {
-            // Logic: Toggle selection.
-            if isSelected {
-                selectedInterest = nil
-            } else {
-                selectedInterest = item // Select new interest
-            }
-        }) {
-           
-                NavigationLink(destination: funFactPage()) {
-                    HStack (spacing: 20) {
-                        Image(item.assetName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 60, height: 60)
-                        
-                        Text(item.name)
-                            .font(.largeTitle)
-                            .fontWeight(.medium)
-                    }
-                    
-                }
       
-            .foregroundColor(.white) // Text and icon color
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 10)
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 15)
-                    .fill(backgroundColor) // This uses the computed property above
-                    .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 5)
-            )
-        }
+            NavigationStack {
+                           Button(action: {
+                               DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                   isActive = true
+                               }
+                               
+                               if isSelected {
+                                   selectedInterest = nil
+                               } else {
+                                   selectedInterest = item // Select new interest
+                               }
+                           }) {
+                               HStack(spacing: 20) {
+                                  
+                                   
+                                   RoundedRectangle(cornerRadius: 15)
+                                       .frame(maxWidth: .infinity)
+                                       .foregroundStyle(backgroundColor) // This uses the computed property above
+                                       .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 5)
+                                       .overlay() {
+                                           HStack(spacing: 20) {
+                                               Image(item.assetName)
+                                                   .resizable()
+                                                   .scaledToFit()
+                                                   .frame(width: 60, height: 60)
+                                               
+                                               Text(item.name)
+                                                   .font(.largeTitle)
+                                                   .fontWeight(.medium)
+                                                   .foregroundStyle(Color.white)
+                                           }
+                                       }
+                               }
+                           }
+                           
+                           .navigationDestination(isPresented: $isActive) {
+                               funFactPage()
+                           }
+                     
+            
+                       }
+
         .padding(.horizontal)
     }
 }
