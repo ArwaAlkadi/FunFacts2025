@@ -18,10 +18,10 @@ enum Interest: String, CaseIterable, Identifiable {
 
     var icon: String {
         switch self {
-        case .random: return "Dice"        // asset
-        case .human: return "Human"       // asset
-        case .nature: return "leaf"       // asset
-        case .lifestyle: return "Lifestyle" // asset
+        case .random: return "Dice"
+        case .human: return "Human"
+        case .nature: return "leaf"
+        case .lifestyle: return "Lifestyle"
         }
     }
 
@@ -77,12 +77,18 @@ struct EditChildProfileView: View {
     @State private var profile: ChildProfile
     @State private var showAvatarPicker = false
     @State private var coinBalance: Int
+    @State private var nameText: String
+    @State private var showInterestList = false
+
+    // نسخ من البيانات الأصلية لمقارنة التعديلات
+    private let originalName: String
+    private let originalInterest: Interest
 
     let onSave: (ChildProfile) -> Void
 
     init(
         profile: ChildProfile = .init(
-            name: "",
+            name: "Meshael",
             interest: .human,
             avatar: allAvatars.first!
         ),
@@ -91,7 +97,16 @@ struct EditChildProfileView: View {
     ) {
         _profile = State(initialValue: profile)
         _coinBalance = State(initialValue: coinBalance)
+        _nameText = State(initialValue: profile.name)
+        self.originalName = profile.name
+        self.originalInterest = profile.interest
         self.onSave = onSave
+    }
+
+    // هل صار أي تعديل؟
+    private var hasChanges: Bool {
+        nameText.trimmingCharacters(in: .whitespaces) != originalName ||
+        profile.interest != originalInterest
     }
 
     var body: some View {
@@ -128,28 +143,12 @@ struct EditChildProfileView: View {
             .presentationDragIndicator(.visible)
         }
         .navigationBarBackButtonHidden(true)
-        .navigationTitle("Edit Profile")
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            
-            ToolbarItem(placement: .principal) {
-                NavigationLink(destination: funFactPage()) {
-                    HStack {
-                       
-                            Text("Cancel")
-                                .font(.headline)
-                                .foregroundColor(Color("factBeige"))
-                            
-                        
-                        Spacer(minLength: 270)
-                    }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                    dismiss()
                 }
-            }
-
-            ToolbarItem(placement: .principal) {
-                Text("Edit Profile")
-                    .font(.headline)
-                    .foregroundColor(Color("factBeige"))
+                .foregroundColor(Color("factBeige"))
             }
         }
     }
@@ -190,7 +189,6 @@ struct EditChildProfileView: View {
                 Text("\(coinBalance)")
                     .font(.subheadline.weight(.medium)).padding(.top, 2)
             }
-       
         }
         .padding(.top, 40)
     }
@@ -201,7 +199,7 @@ struct EditChildProfileView: View {
             // Name field
             Text("Name")
                 .font(.headline)
-            TextField("Enter name", text: .constant("Meshael"))
+            TextField("Enter name", text: $nameText)
                 .textInputAutocapitalization(.words)
                 .padding(12)
                 .background(
@@ -211,14 +209,11 @@ struct EditChildProfileView: View {
 
             // Interest field
             interestField
-
         }
         .padding(.top, 6)
     }
     
     // MARK: Custom Dropdown for Interest
-    @State private var showInterestList = false
-
     private var interestField: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text("Interest")
@@ -290,10 +285,10 @@ struct EditChildProfileView: View {
         }
     }
 
-
     // MARK: Save
     private var saveButton: some View {
         Button {
+            profile.name = nameText
             onSave(profile)
             dismiss()
         } label: {
@@ -302,19 +297,18 @@ struct EditChildProfileView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
                 .background(
-                    profile.name.trimmingCharacters(in: .whitespaces).isEmpty
-                    ? Color(.systemGray4)
-                    : Color("saveButton").opacity(0.78)
+                    hasChanges
+                    ? Color("factGreen")
+                    : Color(.systemGray4)
                 )
                 .foregroundStyle(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                 .shadow(color: .black.opacity(0.1), radius: 6, y: 3)
         }
-        .disabled(profile.name.trimmingCharacters(in: .whitespaces).isEmpty)
+        .disabled(!hasChanges)
         .padding(.top, 8)
     }
 }
-
 
 // MARK: - Avatar Picker Sheet
 
@@ -368,21 +362,8 @@ struct AvatarPickerSheet: View {
                 }
             }
             .padding(16)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: 1) {
-                        Image("coins")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 30, height: 30)
-
-                        Text("\(balance)")
-                            .font(.subheadline.weight(.medium)).padding(.top, 2)
-                    }.padding(.trailing,10)
-                }
-            }
+            .onAppear { tempSelection = selected }
         }
-        .onAppear { tempSelection = selected }
     }
 
     @ViewBuilder
@@ -423,7 +404,6 @@ struct AvatarPickerSheet: View {
                     }
                 }
 
-
                 Text(avatar.cost == 0 ? "Free" : "\(avatar.cost) Coins")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
@@ -431,22 +411,7 @@ struct AvatarPickerSheet: View {
         }
         .buttonStyle(.plain)
     }
-
-
-    @ViewBuilder
-    private func lockOverlay(for avatar: Avatar) -> some View {
-        if avatar.cost > 0 && balance < avatar.cost {
-            ZStack {
-                Image(systemName: "lock.fill")
-                    .foregroundStyle(.red)
-            }
-            .clipShape(Circle())
-        } else {
-            EmptyView()
-        }
-    }
 }
-
 
 // MARK: - Preview
 
@@ -464,3 +429,4 @@ struct AvatarPickerSheet: View {
         }
     }
 }
+

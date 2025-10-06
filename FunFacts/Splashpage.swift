@@ -53,23 +53,23 @@ struct Splashpage: View {
             }
             .onAppear {
                 circleSize = 0
-                withAnimation(.easeInOut(duration: 1.5)) {
+                withAnimation(.easeInOut(duration: 2.0)) { // مدة تكبير الدائرة أطول
                     circleSize = 2000
                 }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) { // ظهور اللوجو
                     withAnimation(.spring()) {
                         showLogo = true
                     }
                 }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) {
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { // ظهور السلوغان
                     withAnimation {
                         showSlogan = true
                     }
                 }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) { // الانتقال للصفحة التالية
                     withAnimation {
                         goNext = true
                     }
@@ -85,3 +85,4 @@ struct Splashpage: View {
             .environmentObject(AppState())
     }
 }
+
