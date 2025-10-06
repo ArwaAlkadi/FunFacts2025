@@ -19,15 +19,18 @@ class AppState: ObservableObject {
     @Published var name: String
     @Published var avatar: String
     @Published var interests: String
-    @Published var coins: Int 
+    @Published var coins: Int
     @Published var didOnboard: Bool
 
     init() {
+        if UserDefaults.standard.object(forKey: "coins") == nil {
+            UserDefaults.standard.set(17, forKey: "coins")
+        }
+
         self.name       = UserDefaults.standard.string(forKey: "name") ?? "name"
         self.avatar     = UserDefaults.standard.string(forKey: "avatar") ?? "avatarEagle"
         self.interests  = UserDefaults.standard.string(forKey: "interests") ?? ""
         self.coins      = UserDefaults.standard.integer(forKey: "coins")
-        UserDefaults.standard.set(17, forKey: "coins")
         self.didOnboard = UserDefaults.standard.bool(forKey: "didOnboard")
     }
 }

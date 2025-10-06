@@ -14,7 +14,10 @@ struct funFactPage: View {
     var theFact: String {
         factOfToday(for: state.interests)
     }
-    
+    init() {
+        funFactNotification()
+        }
+
     var body: some View {
         ZStack {
             Color(.factOrange).ignoresSafeArea()
