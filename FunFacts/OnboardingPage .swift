@@ -15,10 +15,12 @@ struct OnboardingPage {
 struct OnboardingPage_: View {
     
     @State private var currentPage = 0
+    @State private var goToSignup = false   // حالة للتنقل
+    
     let totalPages = 3
     
     let pages: [OnboardingPage] = [
-        OnboardingPage(image: "onboardingpage1 ",
+        OnboardingPage(image: "onboardingpage1",
                        text: "Discover a new fun fact every single day!"),
         OnboardingPage(image: "onboardingpage2",
                        text: "Choose your interests to get facts that matter to you!"),
@@ -36,14 +38,11 @@ struct OnboardingPage_: View {
                     Spacer()
                     NavigationLink(destination: SignupView()) {
                         Text("Skip")
-                         .underline()
-                        .foregroundColor(.gray)
-                        .padding(.horizontal, 25)
+                            .underline()
+                            .foregroundColor(.gray)
+                            .padding(.horizontal, 25)
                     }
                 }
-                
-               
-                //Spacer()
                 
                 //  Swipeable pages
                 TabView(selection: $currentPage) {
@@ -64,7 +63,7 @@ struct OnboardingPage_: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
-                // page indicators go HERE
+                // page indicators
                 HStack(spacing: 6) {
                     ForEach(0..<totalPages, id: \.self) { i in
                         if i == currentPage {
@@ -80,7 +79,7 @@ struct OnboardingPage_: View {
                 }
                 .padding(.horizontal, 20)
                 
-                 Spacer()
+                Spacer()
                 
                 // Next button
                 HStack {
@@ -90,6 +89,8 @@ struct OnboardingPage_: View {
                             withAnimation {
                                 currentPage += 1
                             }
+                        } else {
+                            goToSignup = true // آخر صفحة يوديه SignupView
                         }
                     } label: {
                         Image("Arrow")
@@ -97,10 +98,15 @@ struct OnboardingPage_: View {
                             .foregroundColor(.white)
                             .padding(18)
                             .background(Circle().fill(Color("factGreen")))
-                            //.shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
                     }
                     .padding(.horizontal, 25) // keeps arrow away from edge
                 }
+            }
+            
+            // Hidden NavigationLink (خارج الـ VStack عشان ما يخرب العناصر)
+            NavigationLink(destination: SignupView(),
+                           isActive: $goToSignup) {
+                EmptyView()
             }
         }
     }
@@ -113,3 +119,4 @@ struct OnboardingPage_: View {
             .environmentObject(AppState())
     }
 }
+

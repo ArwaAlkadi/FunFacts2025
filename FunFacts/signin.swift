@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 
@@ -14,7 +13,6 @@ struct AvatarWithPlusButton: View {
                 .resizable()
                 .scaledToFill()
                 .frame(width: 136, height: 230)
-// Clips the image into a circle
                 .shadow(color: .gray.opacity(0.2), radius: 6, x: 0, y: 4) // Shadow applied directly
         }
         // .overlay positions the '+' button to the bottom-LEFT
@@ -30,7 +28,6 @@ struct AvatarWithPlusButton: View {
                             .shadow(color: .gray.opacity(0.7), radius: 7, x: 2, y: 2)
                     )
             }
-            // Offset adjusted to place the button exactly on the edge
             .offset(x: -9, y: -20)
         }
     }
@@ -86,9 +83,6 @@ struct SignupView: View {
                 
                 VStack(spacing: 30) {
                     
-                    // MARK: - Header
-                    Spacer().frame(height: 0)
-                    
                     Spacer()
                     
                     // MARK: - Avatar
@@ -103,9 +97,11 @@ struct SignupView: View {
                     
                     // MARK: - Name Text Field (Rounded Style)
                     HStack {
-                        // Person icon
-                        Image(systemName: "person")
-                            .foregroundColor(.black)
+                        // يظهر الأيقونة بس إذا الاسم فاضي
+                        if nameInput.isEmpty {
+                            Image(systemName: "person")
+                                .foregroundColor(.gray)
+                        }
                         
                         TextField("Enter your name", text: $nameInput)
                             .foregroundColor(.factBlack)
@@ -125,38 +121,16 @@ struct SignupView: View {
                     
                     Spacer()
                     
-                    // MARK: - Save Button
-//                    Button(action: {
-//                        
-//                        state.name = nameInput
-//                        UserDefaults.standard.set(nameInput, forKey: "name")
-//                        //  Add your save logic here ***
-//                        print("Name saved: \(nameInput)")
-//                    }) {
-//                        Text("Save")
-//                            .font(.title2)
-//                            .fontWeight(.bold)
-//                            .foregroundColor(.factBeige)
-//                            .frame(width: 278, height: 48)
-//                            .background(
-//                                RoundedRectangle(cornerRadius: 15)
-//                                    .fill(.factGreen)
-//                                    .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
-//                            )
-//                    }
-//                    .padding(.bottom, 120)
-                    
-           NavigationLink(destination: InterestSelectionView()) {
-               Text("Save")
-                   .font(.title2)
-                   .fontWeight(.bold)
-                   .foregroundColor(.factBeige)
-                   .frame(width: 278, height: 48)
-                   .background(
-                       RoundedRectangle(cornerRadius: 15)
-                           .fill(.factGreen)
-                           .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 5)
-                   )
+                    NavigationLink(destination: InterestSelectionView()) {
+                        Text("Save")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.factBeige)
+                            .frame(width: 278, height: 48)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(.saveButton) // نفس اللون بدون shadow
+                            )
                     }
                     .padding(.bottom, 120)
                 }
