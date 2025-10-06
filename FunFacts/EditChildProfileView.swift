@@ -201,7 +201,7 @@ struct EditChildProfileView: View {
             // Name field
             Text("Name")
                 .font(.headline)
-            TextField("Enter name", text: $profile.name)
+            TextField("Enter name", text: .constant("Meshael"))
                 .textInputAutocapitalization(.words)
                 .padding(12)
                 .background(
