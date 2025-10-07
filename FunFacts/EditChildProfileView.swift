@@ -89,7 +89,7 @@ struct EditChildProfileView: View {
     init(
         profile: ChildProfile = .init(
             name: "Meshael",
-            interest: .human,
+            interest: .nature,
             avatar: allAvatars.first!
         ),
         coinBalance: Int = 18,

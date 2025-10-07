@@ -79,9 +79,17 @@ struct profilePage: View {
                                 .stroke(Color.factBlack, lineWidth: 1)
 
                             HStack {
-                                Image(systemName: "figure.walk")
-                                    .font(Font.title2)
-                                Text("Human")
+                               Circle()
+                                    .fill(Color(.saveButton))
+                                    .frame(width: 25, height: 25)
+                                    .overlay() {
+                                        Image ("leaf")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 15, height: 15)
+                                    }
+                                
+                                Text("Nature")
                             }
                         }
 
