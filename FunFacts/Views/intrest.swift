@@ -1,11 +1,13 @@
 import SwiftUI
 
+// MARK: - Model
 struct InterestItem: Identifiable {
     let id = UUID()
     let name: String
     let assetName: String
 }
 
+// MARK: - Interest Button
 struct InterestButton: View {
     let item: InterestItem
     @Binding var selectedInterest: InterestItem?
@@ -48,8 +50,8 @@ struct InterestButton: View {
     }
 }
 
+// MARK: - Interest Selection View
 struct InterestSelectionView: View {
-
     @EnvironmentObject var state: AppState
     @State private var selectedInterest: InterestItem? = nil
     @State private var goNext = false
@@ -100,14 +102,13 @@ struct InterestSelectionView: View {
                                 case "Random":     key = "Random"
                                 case "Human":      key = "Human"
                                 case "Nature":     key = "Nature"
-                                case "Lifestyle": key = "Lifestyle"
+                                case "Lifestyle":  key = "Lifestyle"
                                 default:           key = "Random"
                                 }
 
                                 state.interests = key
                                 UserDefaults.standard.set(key, forKey: "interests")
 
-                                // تأخير خفيف قبل الانتقال
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                                     goNext = true
                                 }
@@ -128,6 +129,7 @@ struct InterestSelectionView: View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     InterestSelectionView()
         .environmentObject(AppState())

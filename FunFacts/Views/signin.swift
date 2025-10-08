@@ -1,5 +1,6 @@
 import SwiftUI
 
+// MARK: - Avatar With Plus Button
 struct AvatarWithPlusButton: View {
     @EnvironmentObject var state: AppState
 
@@ -14,6 +15,7 @@ struct AvatarWithPlusButton: View {
     }
 }
 
+// MARK: - Signup View
 struct SignupView: View {
     @State private var nameInput: String = ""
     @EnvironmentObject var state: AppState
@@ -72,7 +74,7 @@ struct SignupView: View {
                                     .fill(nameInput.isEmpty ? .gray.opacity(0.4) : .factGreen)
                             )
                     }
-                    .disabled(nameInput.isEmpty) // 👈 يمنع النقر إذا الاسم فاضي
+                    .disabled(nameInput.isEmpty)
                     .padding(.bottom, 120)
                 }
             }
@@ -84,6 +86,7 @@ struct SignupView: View {
     }
 }
 
+// MARK: - Preview
 #Preview {
     NavigationStack {
         SignupView()

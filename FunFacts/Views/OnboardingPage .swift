@@ -1,5 +1,5 @@
 //
-//  OnboardingPage .swift
+//  OnboardingPage.swift
 //  FunFacts
 //
 //  Created by Asma Alqahtani on 08/04/1447 AH.
@@ -7,26 +7,28 @@
 
 import SwiftUI
 
+// MARK: - Model
 struct OnboardingPageـ {
     let image: String
     let text: String
 }
 
+// MARK: - View
 struct OnboardingPage: View {
     
     @State private var currentPage = 0
-    @State private var goToSignup = false   // حالة للتنقل
+    @State private var goToSignup = false
     @EnvironmentObject var state: AppState
 
     let totalPages = 3
     
-   @State var pages: [OnboardingPageـ] = [
+    @State var pages: [OnboardingPageـ] = [
         OnboardingPageـ(image: "onboardingpage1",
-                       text: "Discover an interesting fact every day in just seconds!"),
+                        text: "Discover an interesting fact every day in just seconds!"),
         OnboardingPageـ(image: "onboardingpage2",
-                       text: "Select your interests to receive facts that matter to you"),
+                        text: "Select your interests to receive facts that matter to you"),
         OnboardingPageـ(image: "onboardingpage3",
-                       text: "Get one daily notification quick, useful, and fun to share!")
+                        text: "Get one daily notification quick, useful, and fun to share!")
     ]
     
     var body: some View {
@@ -34,7 +36,7 @@ struct OnboardingPage: View {
             Color("factBeige").ignoresSafeArea()
             
             VStack {
-                // Skip button
+                // MARK: Skip Button
                 HStack {
                     Spacer()
                     Button {
@@ -48,10 +50,9 @@ struct OnboardingPage: View {
                                 .padding(.horizontal, 25)
                         }
                     }
-
                 }
                 
-                //  Swipeable pages
+                // MARK: Swipeable Pages
                 TabView(selection: $currentPage) {
                     ForEach(0..<pages.count, id: \.self) { i in
                         VStack(spacing: 20) {
@@ -61,7 +62,7 @@ struct OnboardingPage: View {
                                 .frame(height: 400)
                             
                             Text(pages[i].text)
-                                .font(.system(size: 21 ,weight:.medium))
+                                .font(.system(size: 21, weight: .medium))
                                 .multilineTextAlignment(.center)
                                 .padding()
                         }
@@ -70,7 +71,7 @@ struct OnboardingPage: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
-                // page indicators
+                // MARK: Page Indicators
                 HStack(spacing: 6) {
                     ForEach(0..<totalPages, id: \.self) { i in
                         if i == currentPage {
@@ -88,7 +89,7 @@ struct OnboardingPage: View {
                 
                 Spacer()
                 
-                // Next button
+                // MARK: Next Button
                 HStack {
                     Spacer()
                     Button {
@@ -97,7 +98,7 @@ struct OnboardingPage: View {
                                 currentPage += 1
                             }
                         } else {
-                            goToSignup = true // آخر صفحة يوديه SignupView
+                            goToSignup = true
                             state.didOnboard = true
                             UserDefaults.standard.set(true, forKey: "didOnboard")
                         }
@@ -108,11 +109,9 @@ struct OnboardingPage: View {
                             .padding(18)
                             .background(Circle().fill(Color("factGreen")))
                     }
-                    .padding(.horizontal, 25) // keeps arrow away from edge
+                    .padding(.horizontal, 25)
                 }
             }
-            
-            // Hidden NavigationLink (خارج الـ VStack عشان ما يخرب العناصر)
             .navigationDestination(isPresented: $goToSignup) {
                 SignupView()
             }
@@ -120,11 +119,10 @@ struct OnboardingPage: View {
     }
 }
 
-
+// MARK: - Preview
 #Preview {
     NavigationStack {
         OnboardingPage()
             .environmentObject(AppState())
     }
 }
-

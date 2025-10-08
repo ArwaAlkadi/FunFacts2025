@@ -5,11 +5,9 @@
 //  Created by Arwa Alkadi on 30/09/2025.
 //
 
-// عدلي ايقونة الانترست وخليها تتغير على حسب الانترست
-
 import SwiftUI
 
-
+// MARK: - View
 struct profilePage: View {
 
     @EnvironmentObject var state: AppState
@@ -22,20 +20,16 @@ struct profilePage: View {
 
             VStack {
                 Spacer()
-
-
-                    Rectangle()
-                        .fill(Color(.factBeige))
-                        .frame(width: 400, height: 600)
-                        .cornerRadius(40)
-
+                Rectangle()
+                    .fill(Color(.factBeige))
+                    .frame(width: 400, height: 600)
+                    .cornerRadius(40)
             }
             .ignoresSafeArea()
 
             VStack {
-
                 ZStack {
-                    Image("\(state.avatar)")
+                    Image(state.avatar)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 230, height: 230)
@@ -57,7 +51,6 @@ struct profilePage: View {
                                 }
                             }
                     }
-
                 }
 
                 Spacer()
@@ -79,30 +72,25 @@ struct profilePage: View {
                                 .stroke(Color.factBlack, lineWidth: 1)
 
                             HStack {
-                               Circle()
+                                Circle()
                                     .fill(Color(.saveButton))
                                     .frame(width: 25, height: 25)
-                                    .overlay() {
-                                        Image ("\(state.interests)")
+                                    .overlay {
+                                        Image(state.interests)
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 15, height: 15)
                                     }
-                                
-                                Text("\(state.interests)")
+
+                                Text(state.interests)
                             }
                         }
-
                     )
-
             }
-
-
-
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            // Back button
+            // MARK: Toolbar
             ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()
@@ -117,7 +105,6 @@ struct profilePage: View {
             ToolbarItem(placement: .principal) {
                 HStack {
                     Spacer(minLength: 240)
-                    
                     NavigationLink(destination: EditChildProfileView()) {
                         HStack {
                             Text("Edit")
@@ -130,13 +117,12 @@ struct profilePage: View {
                         }
                     }
                 }
-               
             }
         }
     }
 }
 
-
+// MARK: - Preview
 #Preview {
     NavigationStack {
         profilePage()

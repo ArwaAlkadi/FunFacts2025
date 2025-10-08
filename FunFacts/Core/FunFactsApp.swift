@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// MARK: - Entry Point
 @main
 struct FunFactsApp: App {
     @StateObject private var state = AppState()
@@ -16,8 +17,8 @@ struct FunFactsApp: App {
             NavigationStack {
                 RootView()
             }
-                .environmentObject(state)
-                .preferredColorScheme(.light)
+            .environmentObject(state)
+            .preferredColorScheme(.light)
         }
     }
 }

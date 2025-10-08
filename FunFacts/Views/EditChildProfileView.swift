@@ -4,52 +4,54 @@
 //
 //  Created by Najd Alsabi on 03/04/1447 AH.
 //
-// EditChildProfileView.swift
+//  EditChildProfileView.swift
 
 import SwiftUI
 
 // MARK: - Models
+
 enum Interest: String, CaseIterable, Identifiable {
     case random = "Random"
     case human = "Human"
     case nature = "Nature"
     case lifestyle = "Lifestyle"
+
     var id: String { rawValue }
 
     var icon: String {
         switch self {
-        case .random: return "Random"
-        case .human: return "Human"
-        case .nature: return "Nature"
-        case .lifestyle: return "Lifestyle"
+        case .random:   return "Random"
+        case .human:    return "Human"
+        case .nature:   return "Nature"
+        case .lifestyle:return "Lifestyle"
         }
     }
 
     var color: Color {
         switch self {
-        case .random: return .orange
-        case .human: return .purple
-        case .nature: return .green
-        case .lifestyle: return .pink
+        case .random:   return .orange
+        case .human:    return .purple
+        case .nature:   return .green
+        case .lifestyle:return .pink
         }
     }
 
     var stateKey: String {
         switch self {
-        case .random: return "Random"
-        case .human: return "Human"
-        case .nature: return "Nature"
-        case .lifestyle: return "Lifestyle"
+        case .random:   return "Random"
+        case .human:    return "Human"
+        case .nature:   return "Nature"
+        case .lifestyle:return "Lifestyle"
         }
     }
 
     static func from(stateString: String) -> Interest {
         switch stateString {
-        case "Random": return .random
-        case "Human": return .human
-        case "Nature": return .nature
-        case "Lifestyle": return .lifestyle
-        default: return .random
+        case "Random":   return .random
+        case "Human":    return .human
+        case "Nature":   return .nature
+        case "Lifestyle":return .lifestyle
+        default:         return .random
         }
     }
 }
@@ -68,6 +70,7 @@ struct ChildProfile: Identifiable, Hashable {
 }
 
 // MARK: - Sample Data
+
 private let allAvatars: [Avatar] = [
     Avatar(assetName: "avatarCamel", cost: 0),
     Avatar(assetName: "avatarCat", cost: 0),
@@ -82,12 +85,13 @@ private let allAvatars: [Avatar] = [
     Avatar(assetName: "avatarLion", cost: 45),
     Avatar(assetName: "avatarLlama", cost: 50),
     Avatar(assetName: "avatarOwl", cost: 55),
-    Avatar(assetName: "avatarPanda",  cost: 60),
+    Avatar(assetName: "avatarPanda", cost: 60),
     Avatar(assetName: "avatarRabbit", cost: 65),
     Avatar(assetName: "avatarTiger", cost: 70),
 ]
 
 // MARK: - Edit Page
+
 struct EditChildProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var state: AppState
@@ -106,20 +110,22 @@ struct EditChildProfileView: View {
             Color("factOrange").ignoresSafeArea()
 
             if let profile {
-                VStack(spacing: 60){
+                VStack(spacing: 60) {
                     header(profile: profile)
                         .zIndex(1)
                         .padding(.top, 220)
 
                     VStack(spacing: 90) {
-                        form(profileBinding: Binding(
-                            get: { profile },
-                            set: { self.profile = $0 }
-                        ))
+                        form(
+                            profileBinding: Binding(
+                                get: { profile },
+                                set: { self.profile = $0 }
+                            )
+                        )
                         saveButton(profile: profile)
                     }
                     .padding(50)
-                    .padding(.top,50)
+                    .padding(.top, 50)
                     .padding(.bottom, 115)
                     .frame(maxWidth: .infinity, alignment: .top)
                     .background(
@@ -129,7 +135,8 @@ struct EditChildProfileView: View {
                     .offset(y: -140)
                 }
             } else {
-                ProgressView().onAppear(perform: bootstrapFromState)
+                ProgressView()
+                    .onAppear(perform: bootstrapFromState)
             }
         }
         .sheet(isPresented: $showAvatarPicker) {
@@ -141,7 +148,7 @@ struct EditChildProfileView: View {
                     ),
                     balance: $coinBalance
                 )
-                .environmentObject(state) // 👈 مهم لقراءة/تعديل الملكيات والكوينز
+                .environmentObject(state)
                 .presentationDetents([.fraction(0.45), .large])
                 .presentationDragIndicator(.visible)
             }
@@ -166,6 +173,7 @@ struct EditChildProfileView: View {
         let interest = Interest.from(stateString: state.interests)
         let currentAvatar = allAvatars.first(where: { $0.assetName == state.avatar }) ?? allAvatars.first!
         let p = ChildProfile(name: state.name, interest: interest, avatar: currentAvatar)
+
         self.profile = p
         self.coinBalance = state.coins
         self.nameText = state.name
@@ -189,7 +197,8 @@ struct EditChildProfileView: View {
                     showAvatarPicker = true
                 } label: {
                     Image(systemName: "plus")
-                        .font(.headline).bold()
+                        .font(.headline)
+                        .bold()
                         .foregroundColor(Color("factOrange"))
                         .padding(10)
                         .background(.white)
@@ -198,11 +207,13 @@ struct EditChildProfileView: View {
                 }
                 .offset(x: -30, y: -12)
             }
+
             HStack(spacing: 1) {
                 Image("coins")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 30, height: 30)
+
                 Text("\(coinBalance)")
                     .font(.subheadline.weight(.medium))
                     .padding(.top, 2)
@@ -213,7 +224,9 @@ struct EditChildProfileView: View {
 
     private func form(profileBinding: Binding<ChildProfile>) -> some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Name").font(.headline)
+            Text("Name")
+                .font(.headline)
+
             TextField("Enter name", text: $nameText)
                 .textInputAutocapitalization(.words)
                 .padding(12)
@@ -223,7 +236,8 @@ struct EditChildProfileView: View {
                 )
 
             VStack(alignment: .leading, spacing: 6) {
-                Text("Interest").font(.headline)
+                Text("Interest")
+                    .font(.headline)
 
                 Button {
                     withAnimation { showInterestList.toggle() }
@@ -233,14 +247,18 @@ struct EditChildProfileView: View {
                             Circle()
                                 .fill(profileBinding.wrappedValue.interest.color)
                                 .frame(width: 28, height: 28)
+
                             Image(profileBinding.wrappedValue.interest.icon)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 16, height: 16)
                         }
+
                         Text(profileBinding.wrappedValue.interest.rawValue)
                             .foregroundColor(.primary)
+
                         Spacer()
+
                         Image(systemName: showInterestList ? "chevron.up" : "chevron.down")
                             .foregroundColor(.gray)
                     }
@@ -266,13 +284,16 @@ struct EditChildProfileView: View {
                                         Circle()
                                             .fill(item.color)
                                             .frame(width: 28, height: 28)
+
                                         Image(item.icon)
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 16, height: 16)
                                     }
+
                                     Text(item.rawValue)
                                         .foregroundColor(.white)
+
                                     Spacer()
                                 }
                                 .padding(.vertical, 8)
@@ -293,6 +314,7 @@ struct EditChildProfileView: View {
         Button {
             let chosen = profile.avatar
             let avatarChanged = (state.avatar != chosen.assetName)
+
             var newBalance = coinBalance
             if avatarChanged && chosen.cost > 0 && chosen.assetName != state.avatar {
                 newBalance = max(0, coinBalance - chosen.cost)
@@ -331,40 +353,37 @@ struct AvatarPickerSheet: View {
     @Binding var balance: Int
 
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var state: AppState   // 👈 للوصول للملكيّات والكوينز
+    @EnvironmentObject var state: AppState
 
     private let avatars = allAvatars
     @State private var tempSelection: Avatar? = nil
-
-    // 👇 تنبيه "ما عندك كفاية"
     @State private var showInsufficientAlert = false
 
-    // 👇 عنوان الزر يتغيّر حسب حالة الاختيار/الملكية
     private var ctaTitle: String {
         let chosen = tempSelection ?? selected
         let isOwned = state.ownedAvatars.contains(chosen.assetName) || chosen.cost == 0
-        return isOwned ? "Use Avatar" : "Unlock(\(chosen.cost) Coins)"
+        return isOwned ? "Use Avatar" : "Unlock  (\(chosen.cost) Coins)"
     }
 
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading, spacing: 16) {
-                
+
                 HStack {
                     Text("Pick your avatar")
                         .font(.headline)
+
                     Spacer()
+
                     Text("\(balance)")
                         .font(.subheadline.weight(.medium))
                         .foregroundColor(.secondary)
-                    
+
                     Image("coins")
                         .resizable()
                         .frame(width: 30, height: 30)
-                        
                 }
                 .padding(10)
-               
 
                 let columns = [GridItem(.adaptive(minimum: 110), spacing: 10)]
                 ScrollView {
@@ -378,7 +397,7 @@ struct AvatarPickerSheet: View {
 
                 HStack {
                     Button("Cancel") { dismiss() }
-                        .padding(.leading,10)
+                        .padding(.leading, 10)
                         .foregroundColor(Color("factOrange"))
 
                     Spacer()
@@ -388,7 +407,10 @@ struct AvatarPickerSheet: View {
                         let isOwned = state.ownedAvatars.contains(chosen.assetName) || chosen.cost == 0
 
                         if !isOwned {
-                            if balance >= chosen.cost {
+                            if chosen.cost == 0 {
+                                state.ownedAvatars.insert(chosen.assetName)
+                                state.saveOwnedAvatars()
+                            } else if balance >= chosen.cost {
                                 balance = max(0, balance - chosen.cost)
                                 state.coins = balance
                                 state.ownedAvatars.insert(chosen.assetName)
@@ -403,18 +425,16 @@ struct AvatarPickerSheet: View {
                         selected = chosen
                         dismiss()
                     } label: {
-                        HStack(spacing: 1) {
+                        HStack(spacing: 6) {
                             if state.ownedAvatars.contains((tempSelection ?? selected).assetName)
                                 || (tempSelection ?? selected).cost == 0 {
-                                // إذا مملوك أو مجاني
                                 Text("Use Avatar")
                                     .font(.headline)
                             } else {
-                                // إذا يحتاج يشتريه
-                                Text("Unlock   ")
+                                Text("Unlock")
                                     .font(.headline)
 
-                                Image("coins") // 👈 اسم صورة العملة في الأصول
+                                Image("coins")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)
@@ -444,13 +464,9 @@ struct AvatarPickerSheet: View {
 
     @ViewBuilder
     private func avatarButton(_ avatar: Avatar) -> some View {
-        // مملوك أو مجاني؟
         let owned = state.ownedAvatars.contains(avatar.assetName) || avatar.cost == 0
-        // يكفي رصيد للشراء؟
-        let enoughToBuy = balance >= avatar.cost
 
         Button {
-            // نسمح بالتحديد لأي أفاتار (حتى لو مقفول) — الشراء الفعلي يتم بزر CTA
             tempSelection = avatar
         } label: {
             VStack(spacing: 6) {
@@ -460,21 +476,18 @@ struct AvatarPickerSheet: View {
                         .scaledToFit()
                         .frame(width: 110, height: 110)
                         .clipShape(Circle())
-                        // إذا غير مملوك ورصيده ما يكفي → نخفف
-                        .opacity((owned || enoughToBuy) ? 1 : 0.5)
+                        .opacity(owned ? 1 : 0.55)
 
-                    // إطار تمييز عند التحديد
                     Circle()
                         .stroke(
                             avatar == (tempSelection ?? selected)
-                            ? Color.primary.opacity(0.7)
-                            : Color.clear,
+                                ? Color.primary.opacity(0.7)
+                                : Color.clear,
                             lineWidth: 1
                         )
                         .frame(width: 100, height: 100)
 
-                    // قفل يظهر فقط إذا "غير مملوك" و"الرصيد غير كافٍ"
-                    if !owned && !enoughToBuy {
+                    if !owned {
                         ZStack {
                             Circle().fill(Color.black.opacity(0.35))
                             Image(systemName: "lock.fill")
@@ -495,10 +508,10 @@ struct AvatarPickerSheet: View {
                             .font(.subheadline.weight(.medium))
                             .foregroundStyle(.secondary)
 
-                        Image("coins") // 👈 اسم صورة العملة في الأصول
+                        Image("coins")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 20, height:20)
+                            .frame(width: 20, height: 20)
                     }
                 }
             }
@@ -506,7 +519,9 @@ struct AvatarPickerSheet: View {
         .buttonStyle(.plain)
     }
 }
+
 // MARK: - Preview
+
 #Preview {
     NavigationStack {
         EditChildProfileView()

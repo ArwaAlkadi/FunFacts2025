@@ -8,12 +8,12 @@
 import SwiftUI
 import UserNotifications
 
+// MARK: - Daily Notification Scheduler
 func scheduleDailyFunFact(using state: AppState) {
     let center = UNUserNotificationCenter.current()
     
     center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
         if granted {
-            // نحذف الجدول القديم (عشان ما تتكرر نفس الإشعارات)
             center.removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
             
             let content = UNMutableNotificationContent()
@@ -21,12 +21,10 @@ func scheduleDailyFunFact(using state: AppState) {
             content.body = factOfToday(for: state.interests)
             content.sound = .default
 
-            // نحدد وقت الإشعار (مثلاً الساعة 8 الصبح)
             var time = DateComponents()
             time.hour = 20
             time.minute = 50
 
-            // يتكرر كل يوم في نفس الوقت
             let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: true)
 
             let request = UNNotificationRequest(
