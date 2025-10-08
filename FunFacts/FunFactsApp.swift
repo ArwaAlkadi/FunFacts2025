@@ -14,9 +14,10 @@ struct FunFactsApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                Splashpage()
+                RootView()
             }
                 .environmentObject(state)
+                .preferredColorScheme(.light)
         }
     }
 }

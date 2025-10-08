@@ -22,15 +22,29 @@ class AppState: ObservableObject {
     @Published var coins: Int
     @Published var didOnboard: Bool
 
+    // 👇 ملكيات الأفاتارات التي تم شراؤها/فتحها
+    @Published var ownedAvatars: Set<String>
+
     init() {
+        // أول تشغيل: ثبّتي رصيد افتراضي إذا ما كان محفوظ
         if UserDefaults.standard.object(forKey: "coins") == nil {
-            UserDefaults.standard.set(17, forKey: "coins")
+            UserDefaults.standard.set(10, forKey: "coins")
         }
 
-        self.name       = UserDefaults.standard.string(forKey: "name") ?? "name"
+        self.name       = UserDefaults.standard.string(forKey: "name") ?? ""
         self.avatar     = UserDefaults.standard.string(forKey: "avatar") ?? "avatarEagle"
         self.interests  = UserDefaults.standard.string(forKey: "interests") ?? ""
         self.coins      = UserDefaults.standard.integer(forKey: "coins")
         self.didOnboard = UserDefaults.standard.bool(forKey: "didOnboard")
+
+        // الأفاتارات المملوكة (Free + اللي اشتراها)
+        let defaultOwned = ["avatarCamel", "avatarCat"] // المجانية
+        let savedOwned = (UserDefaults.standard.array(forKey: "ownedAvatars") as? [String]) ?? defaultOwned
+        self.ownedAvatars = Set(savedOwned)
+    }
+
+    // حفظ الملكيات
+    func saveOwnedAvatars() {
+        UserDefaults.standard.set(Array(ownedAvatars), forKey: "ownedAvatars")
     }
 }

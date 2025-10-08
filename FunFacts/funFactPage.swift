@@ -10,14 +10,8 @@ import SwiftUI
 struct funFactPage: View {
     
     @EnvironmentObject var state: AppState
-    @State var currentFact: String = "Bananas are berries… but strawberries are not!"
-    var theFact: String {
-        factOfToday(for: state.interests)
-    }
-    init() {
-        funFactNotification()
-        }
-
+    @State var currentFact: String = ""
+    
     var body: some View {
         ZStack {
             Color(.factOrange).ignoresSafeArea()
@@ -26,13 +20,13 @@ struct funFactPage: View {
 
                 HStack {
                     NavigationLink(destination: profilePage()) {
-                        Image("avatarCamel")
+                        Image("\(state.avatar)")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 60, height: 60)
                     }
 
-                    Text("Hello, Mashael")
+                    Text("Hello \(state.name)")
                         .foregroundStyle(.factBeige)
                         .font(.system(size: 21, weight: .bold))
 
@@ -81,7 +75,7 @@ struct funFactPage: View {
                             .cornerRadius(15)
                             .shadow(radius: 10)
                             .overlay {
-                                Text("Bananas are berries… but strawberries are not!")
+                                Text(currentFact.isEmpty ? "No facts available." : currentFact)
                                     .font(.system(size: 21, weight: .regular))
                                     .padding(.horizontal)
                                     .foregroundStyle(.factBlack)
@@ -89,7 +83,7 @@ struct funFactPage: View {
 
                         HStack {
 
-                            ShareLink(item: currentFact) {
+                            ShareLink(item: currentFact.isEmpty ? "Fun Facts app" : currentFact) {
                                 Image(systemName: "square.and.arrow.up.fill")
                                     .resizable()
                                     .scaledToFit()
@@ -117,6 +111,9 @@ struct funFactPage: View {
             .navigationBarBackButtonHidden(true)
 
         }
+        .onAppear {
+                    currentFact = factOfToday(for: state.interests)
+                }
     }
 }
 

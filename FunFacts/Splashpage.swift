@@ -11,12 +11,9 @@ struct Splashpage: View {
     @State private var circleSize: CGFloat = 0
     @State private var showLogo = false
     @State private var showSlogan = false
-    @State private var goNext = false
     
     var body: some View {
-        if goNext {
-            OnboardingPage_()
-        } else {
+       
             ZStack {
                 // الدائرة الخلفية
                 Circle()
@@ -40,7 +37,7 @@ struct Splashpage: View {
                     // السلوغان بشكل بسيط واحترافي
                     if showLogo {
                         Text("✦ Learn • Quick • And • Easy ✦")
-                            .font(.system(size: 22, weight: .semibold, design: .rounded))
+                            .font(.system(size: 18, weight: .semibold, design: .rounded))
                             .foregroundColor(.white)
                             .opacity(showSlogan ? 1 : 0)
                             .scaleEffect(showSlogan ? 1 : 0.8)
@@ -58,7 +55,7 @@ struct Splashpage: View {
                 }
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) { // ظهور اللوجو
-                    withAnimation(.spring()) {
+                    withAnimation(.easeOut(duration: 1.0)) {
                         showLogo = true
                     }
                 }
@@ -69,13 +66,8 @@ struct Splashpage: View {
                     }
                 }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 4.5) { // الانتقال للصفحة التالية
-                    withAnimation {
-                        goNext = true
-                    }
-                }
             }
-        }
+        
     }
 }
 

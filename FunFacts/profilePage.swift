@@ -35,7 +35,7 @@ struct profilePage: View {
             VStack {
 
                 ZStack {
-                    Image("avatarCamel")
+                    Image("\(state.avatar)")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 230, height: 230)
@@ -53,7 +53,7 @@ struct profilePage: View {
                                     Image("coins")
                                         .resizable()
                                         .frame(width: 20, height: 20)
-                                    Text("18")
+                                    Text("\(state.coins)")
                                 }
                             }
                     }
@@ -65,7 +65,7 @@ struct profilePage: View {
             }
 
             VStack {
-                Text("Hello, Meshael ")
+                Text("Hello \(state.name)")
                     .font(.largeTitle)
                     .bold()
 
@@ -83,13 +83,13 @@ struct profilePage: View {
                                     .fill(Color(.saveButton))
                                     .frame(width: 25, height: 25)
                                     .overlay() {
-                                        Image ("leaf")
+                                        Image ("\(state.interests)")
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 15, height: 15)
                                     }
                                 
-                                Text("Nature")
+                                Text("\(state.interests)")
                             }
                         }
 

@@ -1,108 +1,44 @@
 import SwiftUI
 
-
-// MARK: - Component 2: Profile Image and '+' Button (Final Styling)
 struct AvatarWithPlusButton: View {
     @EnvironmentObject var state: AppState
 
     var body: some View {
-        // ZStack is used only to contain the avatar and its overlay
         ZStack {
-            // Owl Image - now handles its own clipping and shadow
-            Image("avatarCamel")
+            Image(state.avatar)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 136, height: 230)
-                .shadow(color: .gray.opacity(0.2), radius: 6, x: 0, y: 4) // Shadow applied directly
-        }
-        // .overlay positions the '+' button to the bottom-LEFT
-        .overlay(alignment: .bottomLeading) {
-            NavigationLink(destination: ProfileEditView()) {
-                Image(systemName: "plus")
-                    .font(.system(size: 24, weight: .regular))
-                    .foregroundColor(.factOrange)
-                    .padding(8)
-                    .background(
-                        Circle()
-                            .fill(Color.factBeige)
-                            .shadow(color: .gray.opacity(0.7), radius: 7, x: 2, y: 2)
-                    )
-            }
-            .offset(x: -9, y: -20)
+                .shadow(color: .gray.opacity(0.2), radius: 6, x: 0, y: 4)
         }
     }
 }
 
-
-// MARK: - Secondary View for the '+' Button Navigation (Edit Profile)
-struct ProfileEditView: View {
-    @Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        ZStack {
-            Color.factBeige.ignoresSafeArea()
-            VStack(spacing: 20) {
-                Text("Edit Profile Picture")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.factBlack)
-                
-                Text("This is the new page you navigated to. Implement your avatar selection/editor here.")
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .foregroundColor(.factBlack.opacity(0.8))
-
-                Button("Go Back") {
-                    dismiss()
-                }
-                .padding()
-                .background(.factOrange)
-                .foregroundColor(.white)
-                .cornerRadius(10)
-            }
-            .padding()
-        }
-        .navigationTitle("Edit Avatar")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-
-// MARK: - Main Sign-up Screen View
 struct SignupView: View {
     @State private var nameInput: String = ""
-    @State private var coinCount: Int = 0
     @EnvironmentObject var state: AppState
+    @State private var goNext = false
 
     var body: some View {
         NavigationStack {
             ZStack {
-                // 1. Overall Background
-                Color.factBeige
-                    .edgesIgnoringSafeArea(.all)
-                
+                Color.factBeige.ignoresSafeArea()
+
                 VStack(spacing: 30) {
-                    
                     Spacer()
-                    
-                    // MARK: - Avatar
+
                     AvatarWithPlusButton()
-                    
-                    // MARK: - Instruction Text
+
                     Text("Enter your name to get started!")
                         .font(.title3)
                         .fontWeight(.medium)
                         .foregroundColor(.factBlack)
-                        .padding(.top, -3)
-                    
-                    // MARK: - Name Text Field (Rounded Style)
+
                     HStack {
-                        // يظهر الأيقونة بس إذا الاسم فاضي
                         if nameInput.isEmpty {
                             Image(systemName: "person")
                                 .foregroundColor(.gray)
                         }
-                        
                         TextField("Enter your name", text: $nameInput)
                             .foregroundColor(.factBlack)
                             .autocorrectionDisabled()
@@ -118,10 +54,14 @@ struct SignupView: View {
                                     .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                             )
                     )
-                    
+
                     Spacer()
-                    
-                    NavigationLink(destination: InterestSelectionView()) {
+
+                    Button {
+                        state.name = nameInput.trimmingCharacters(in: .whitespacesAndNewlines)
+                        UserDefaults.standard.set(state.name, forKey: "name")
+                        goNext = true
+                    } label: {
                         Text("Save")
                             .font(.title2)
                             .fontWeight(.bold)
@@ -129,20 +69,21 @@ struct SignupView: View {
                             .frame(width: 278, height: 48)
                             .background(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .fill(.factGreen) // نفس اللون بدون shadow
+                                    .fill(nameInput.isEmpty ? .gray.opacity(0.4) : .factGreen)
                             )
                     }
+                    .disabled(nameInput.isEmpty) // 👈 يمنع النقر إذا الاسم فاضي
                     .padding(.bottom, 120)
                 }
             }
-            // Hide the NavigationStack bar on the root view
+            .navigationDestination(isPresented: $goNext) {
+                InterestSelectionView()
+            }
             .navigationBarHidden(true)
-            
         }
     }
 }
 
-// MARK: - Preview
 #Preview {
     NavigationStack {
         SignupView()

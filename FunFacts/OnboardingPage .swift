@@ -7,24 +7,25 @@
 
 import SwiftUI
 
-struct OnboardingPage {
+struct OnboardingPageـ {
     let image: String
     let text: String
 }
 
-struct OnboardingPage_: View {
+struct OnboardingPage: View {
     
     @State private var currentPage = 0
     @State private var goToSignup = false   // حالة للتنقل
-    
+    @EnvironmentObject var state: AppState
+
     let totalPages = 3
     
-    let pages: [OnboardingPage] = [
-        OnboardingPage(image: "onboardingpage1",
+   @State var pages: [OnboardingPageـ] = [
+        OnboardingPageـ(image: "onboardingpage1",
                        text: "Discover an interesting fact every day in just seconds!"),
-        OnboardingPage(image: "onboardingpage2",
+        OnboardingPageـ(image: "onboardingpage2",
                        text: "Select your interests to receive facts that matter to you"),
-        OnboardingPage(image: "onboardingpage3",
+        OnboardingPageـ(image: "onboardingpage3",
                        text: "Get one daily notification quick, useful, and fun to share!")
     ]
     
@@ -36,12 +37,18 @@ struct OnboardingPage_: View {
                 // Skip button
                 HStack {
                     Spacer()
-                    NavigationLink(destination: SignupView()) {
-                        Text("Skip")
-                            .underline()
-                            .foregroundColor(.gray)
-                            .padding(.horizontal, 25)
+                    Button {
+                        state.didOnboard = true
+                        UserDefaults.standard.set(true, forKey: "didOnboard")
+                    } label: {
+                        NavigationLink(destination: SignupView()) {
+                            Text("Skip")
+                                .underline()
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 25)
+                        }
                     }
+
                 }
                 
                 //  Swipeable pages
@@ -91,6 +98,8 @@ struct OnboardingPage_: View {
                             }
                         } else {
                             goToSignup = true // آخر صفحة يوديه SignupView
+                            state.didOnboard = true
+                            UserDefaults.standard.set(true, forKey: "didOnboard")
                         }
                     } label: {
                         Image("Arrow")
@@ -104,9 +113,8 @@ struct OnboardingPage_: View {
             }
             
             // Hidden NavigationLink (خارج الـ VStack عشان ما يخرب العناصر)
-            NavigationLink(destination: SignupView(),
-                           isActive: $goToSignup) {
-                EmptyView()
+            .navigationDestination(isPresented: $goToSignup) {
+                SignupView()
             }
         }
     }
@@ -115,7 +123,7 @@ struct OnboardingPage_: View {
 
 #Preview {
     NavigationStack {
-        OnboardingPage_()
+        OnboardingPage()
             .environmentObject(AppState())
     }
 }
