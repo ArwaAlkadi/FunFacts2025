@@ -9,13 +9,13 @@ import SwiftUI
 
 
 //هنا نضيف الفاكت
-var random: [String] = []
+var random: [String] = ["The color orange is named after thr fruit"]
 
-var human: [String] = []
+var human: [String] = ["babys have 100 bones at birth, but they will lose around 20 by the time they are adults"]
 
-var Nature: [String] = []
+var Nature: [String] = ["a shrimps heart is in it's head"]
 
-var lifeStyle: [String] = []
+var lifeStyle: [String] = ["the eiffel tower Grows in the summer time becuse of the heat"]
 
 
 // دالة ترجع الفاكت اليومية حسب الاهتمام
