@@ -7,11 +7,18 @@
 
 import SwiftUI
 
-var random:   [String] = ["R1","R2","R3"]
-var human:    [String] = ["H1","H2"]
-var nature:   [String] = ["N1","N2","N3","N4"]
-var lifeStyle:[String] = ["L1","L2"]
 
+//هنا نضيف الفاكت
+var random: [String] = ["The color orange is named after thr fruit"]
+
+var human: [String] = ["babys have 100 bones at birth, but they will lose around 20 by the time they are adults"]
+
+var Nature: [String] = ["a shrimps heart is in it's head"]
+
+var lifeStyle: [String] = ["the eiffel tower Grows in the summer time becuse of the heat"]
+
+
+// دالة ترجع الفاكت اليومية حسب الاهتمام
 func factOfToday(for category: String) -> String {
     let day = Calendar.current.ordinality(of: .day, in: .year, for: Date()) ?? 0
     
