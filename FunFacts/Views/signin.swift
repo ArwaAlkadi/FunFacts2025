@@ -34,7 +34,6 @@ struct SignupView: View {
                     Text("Enter your name to get started!")
                         .font(.title3)
                         .fontWeight(.medium)
-                        .foregroundColor(.factBlack)
 
                     HStack {
                         if nameInput.isEmpty {
@@ -42,7 +41,6 @@ struct SignupView: View {
                                 .foregroundColor(.gray)
                         }
                         TextField("Enter your name", text: $nameInput)
-                            .foregroundColor(.factBlack)
                             .autocorrectionDisabled()
                     }
                     .padding(.horizontal, 16)
@@ -82,6 +80,9 @@ struct SignupView: View {
                 InterestSelectionView()
             }
             .navigationBarHidden(true)
+        }
+        .onAppear {
+            scheduleDailyFunFact(using: state)
         }
     }
 }

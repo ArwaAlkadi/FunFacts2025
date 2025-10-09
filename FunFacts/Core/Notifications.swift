@@ -5,7 +5,6 @@
 //  Created by Arwa Alkadi on 05/10/2025.
 //
 
-import SwiftUI
 import UserNotifications
 
 // MARK: - Daily Notification Scheduler
@@ -16,14 +15,18 @@ func scheduleDailyFunFact(using state: AppState) {
         if granted {
             center.removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
             
+            let name = UserDefaults.standard.string(forKey: "name") ?? "there"
+            let interests = UserDefaults.standard.string(forKey: "interests") ?? "Random"
+            let fact = factOfToday(for: interests)
+            
             let content = UNMutableNotificationContent()
-            content.title = "Hello \(state.name) 👋"
-            content.body = factOfToday(for: state.interests)
+            content.title = "Hello \(name) 👋"
+            content.body = fact
             content.sound = .default
 
             var time = DateComponents()
-            time.hour = 20
-            time.minute = 50
+            time.hour = 11
+            time.minute = 15
 
             let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: true)
 

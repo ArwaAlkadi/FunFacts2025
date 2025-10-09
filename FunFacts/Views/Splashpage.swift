@@ -25,7 +25,7 @@ struct Splashpage: View {
                 Spacer()
                 
                 if showLogo {
-                    Image("tree")
+                    Image("logo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 230, height: 230)
@@ -51,13 +51,13 @@ struct Splashpage: View {
                 circleSize = 2000
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 withAnimation(.easeOut(duration: 1.0)) {
                     showLogo = true
                 }
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 withAnimation {
                     showSlogan = true
                 }

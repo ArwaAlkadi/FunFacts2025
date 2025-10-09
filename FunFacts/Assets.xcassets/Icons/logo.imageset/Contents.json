@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "logo.pdf",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "logo@2x.pdf",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "logo@3x.pdf",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "Screenshot_1447-04-13_at_5.18.39_PM-removebg-preview.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

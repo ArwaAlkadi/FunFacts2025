@@ -376,9 +376,8 @@ struct AvatarPickerSheet: View {
                     Spacer()
 
                     Text("\(balance)")
-                        .font(.subheadline.weight(.medium))
-                        .foregroundColor(.secondary)
-
+                        .font(.subheadline.weight(.bold))
+                        
                     Image("coins")
                         .resizable()
                         .frame(width: 30, height: 30)
@@ -425,13 +424,13 @@ struct AvatarPickerSheet: View {
                         selected = chosen
                         dismiss()
                     } label: {
-                        HStack(spacing: 6) {
+                        HStack(spacing: 2) {
                             if state.ownedAvatars.contains((tempSelection ?? selected).assetName)
                                 || (tempSelection ?? selected).cost == 0 {
                                 Text("Use Avatar")
                                     .font(.headline)
                             } else {
-                                Text("Unlock")
+                                Text("Unlock    ")
                                     .font(.headline)
 
                                 Image("coins")

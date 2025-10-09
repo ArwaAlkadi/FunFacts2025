@@ -7,11 +7,32 @@
 
 import SwiftUI
 
+// MARK: - Interest Type
+enum InterestType: String {
+    case random = "Random"
+    case human = "Human"
+    case nature = "Nature"
+    case lifestyle = "Lifestyle"
+
+    var color: Color {
+        switch self {
+        case .random:   return .orange
+        case .human:    return .purple
+        case .nature:   return .green
+        case .lifestyle:return .pink
+        }
+    }
+}
+
 // MARK: - View
 struct profilePage: View {
 
     @EnvironmentObject var state: AppState
     @Environment(\.dismiss) var dismiss
+
+    private var interestColor: Color {
+        InterestType(rawValue: state.interests)?.color ?? .gray
+    }
 
     var body: some View {
         ZStack {
@@ -58,7 +79,7 @@ struct profilePage: View {
             }
 
             VStack {
-                Text("Hello \(state.name)")
+                Text("Hello \(state.name) 👋")
                     .font(.largeTitle)
                     .bold()
 
@@ -69,11 +90,11 @@ struct profilePage: View {
                     .overlay(
                         ZStack {
                             RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color.factBlack, lineWidth: 1)
+                                .stroke(Color.black, lineWidth: 1)
 
                             HStack {
                                 Circle()
-                                    .fill(Color(.saveButton))
+                                    .fill(interestColor)
                                     .frame(width: 25, height: 25)
                                     .overlay {
                                         Image(state.interests)

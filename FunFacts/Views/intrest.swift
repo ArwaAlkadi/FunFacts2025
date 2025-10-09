@@ -77,14 +77,12 @@ struct InterestSelectionView: View {
                     Text("Hi \(state.name) 👋")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(.factBlack)
                         .padding(.top, 56)
                         .padding(.horizontal)
 
                     HStack(spacing: 5) {
                         Text("Choose your interest")
                             .font(.title3)
-                            .foregroundColor(.factBlack)
                             .padding(.horizontal)
 
                         Text(selectionCountText)

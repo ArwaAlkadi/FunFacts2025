@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-// MARK: - Root View
+// MARK: - RootView
 struct RootView: View {
     @EnvironmentObject var state: AppState
     @State private var showSplash = true
     @State private var splashOpacity = 1.0
+    @State private var openedFromNotification = false
 
     var body: some View {
         if showSplash {
@@ -24,11 +25,14 @@ struct RootView: View {
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
                             showSplash = false
+                            openedFromNotification = UserDefaults.standard.bool(forKey: "openedFromNotification")
                         }
                     }
                 }
         } else {
-            if !state.didOnboard {
+            if openedFromNotification {
+                funFactPage()
+            } else if !state.didOnboard {
                 OnboardingPage()
             } else if state.name.isEmpty {
                 SignupView()

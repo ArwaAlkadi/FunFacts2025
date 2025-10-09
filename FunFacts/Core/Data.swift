@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 import Combine
 
 // MARK: - App State
@@ -25,7 +24,7 @@ class AppState: ObservableObject {
         }
 
         self.name = UserDefaults.standard.string(forKey: "name") ?? ""
-        self.avatar = UserDefaults.standard.string(forKey: "avatar") ?? "avatarEagle"
+        self.avatar = UserDefaults.standard.string(forKey: "avatar") ?? "avatarCamel"
         self.interests = UserDefaults.standard.string(forKey: "interests") ?? ""
         self.coins = UserDefaults.standard.integer(forKey: "coins")
         self.didOnboard = UserDefaults.standard.bool(forKey: "didOnboard")

@@ -66,6 +66,7 @@ struct OnboardingPage: View {
                                 .multilineTextAlignment(.center)
                                 .padding()
                         }
+                        .padding()
                         .tag(i)
                     }
                 }
@@ -103,7 +104,7 @@ struct OnboardingPage: View {
                             UserDefaults.standard.set(true, forKey: "didOnboard")
                         }
                     } label: {
-                        Image("Arrow")
+                        Image(systemName: "chevron.forward")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(.white)
                             .padding(18)

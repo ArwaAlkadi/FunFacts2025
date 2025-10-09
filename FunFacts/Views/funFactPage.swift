@@ -29,7 +29,7 @@ struct funFactPage: View {
                             .frame(width: 60, height: 60)
                     }
 
-                    Text("Hello \(state.name)")
+                    Text("Hello \(state.name) 👋")
                         .foregroundStyle(.factBeige)
                         .font(.system(size: 21, weight: .bold))
                     
@@ -46,7 +46,6 @@ struct funFactPage: View {
                                     .resizable()
                                     .frame(width: 20, height: 20)
                                 Text("\(state.coins)")
-                                    .foregroundStyle(Color(.factBlack))
                             }
                         }
                 }
@@ -83,7 +82,6 @@ struct funFactPage: View {
                                 Text(currentFact.isEmpty ? "No facts available." : currentFact)
                                     .font(.system(size: 21, weight: .regular))
                                     .padding(.horizontal)
-                                    .foregroundStyle(.factBlack)
                             }
                         
                         // MARK: Share Button
