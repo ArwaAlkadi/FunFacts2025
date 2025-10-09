@@ -1,4 +1,4 @@
-# Welcome to the FunFacts iOS App Repository!  
+# FunFacts
 FunFacts is an iOS app that delivers a unique daily fun fact through local notifications based on the user’s selected interest.  
 It combines learning and entertainment in a colorful, engaging interface built with Swift and SwiftUI.  
 
