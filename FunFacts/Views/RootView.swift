@@ -19,7 +19,7 @@ struct RootView: View {
             Splashpage()
                 .opacity(splashOpacity)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         withAnimation(.easeOut(duration: 0.9)) {
                             splashOpacity = 0
                         }
