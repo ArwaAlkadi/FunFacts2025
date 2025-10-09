@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "Screenshot_1447-04-13_at_5.18.39_PM-removebg-preview.png",
-      "idiom" : "universal"
+      "filename" : "Logo 12.32.00 PM.pdf",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Logo@2x 12.32.00 PM.pdf",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Logo@3x 12.32.00 PM.pdf",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
