@@ -234,6 +234,11 @@ struct EditChildProfileView: View {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.gray.opacity(0.4), lineWidth: 1)
                 )
+                .onChange(of: nameText) {
+                    if nameText.count > 10 {
+                        nameText = String(nameText.prefix(10))
+                    }
+                }
 
             VStack(alignment: .leading, spacing: 6) {
                 Text("Interest")
@@ -330,11 +335,13 @@ struct EditChildProfileView: View {
             UserDefaults.standard.set(state.avatar, forKey: "avatar")
             UserDefaults.standard.set(state.coins, forKey: "coins")
             
-            scheduleDailyFunFact(name: state.name,
-                                         interests: state.interests,
-                                         atHour: 10,
-                                         minute: 5)
-
+            scheduleFunFactsBatch(
+                name: state.name,
+                interests: state.interests,
+                hour: 10,
+                minute: 0
+            )
+            
             dismiss()
         } label: {
             Text("Save")

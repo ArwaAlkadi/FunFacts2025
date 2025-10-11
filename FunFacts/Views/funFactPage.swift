@@ -109,8 +109,13 @@ struct funFactPage: View {
             .navigationBarBackButtonHidden(true)
         }
         .onAppear {
-            currentFact = factOfToday(for: state.interests)
-            scheduleDailyFunFact(name: state.name, interests: state.interests, atHour: 10, minute: 5)
+            currentFact = factOfToday(category: state.interests, on: Date())
+            scheduleFunFactsBatch(
+                name: state.name,
+                interests: state.interests,
+                hour: 10,
+                minute: 0
+            )
         }
     }
 }

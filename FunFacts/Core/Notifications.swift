@@ -6,29 +6,49 @@
 //
 import UserNotifications
 
-// MARK: - Daily Notification Scheduler
-func scheduleDailyFunFact(name: String, interests: String, atHour hour: Int, minute: Int) {
+// MARK: - Batch schedule up to 64 notifications ahead
+func scheduleFunFactsBatch(
+    name: String,
+    interests: String,
+    hour: Int,
+    minute: Int,
+    daysAhead: Int = 64
+) {
     let center = UNUserNotificationCenter.current()
 
     center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
         guard granted else { return }
 
-        center.removePendingNotificationRequests(withIdentifiers: ["dailyReminder"])
+        center.removePendingNotificationRequests(withIdentifiers: ["dailyReminder"]) 
+        center.removeAllPendingNotificationRequests()
 
-        let content = UNMutableNotificationContent()
-        content.title = "Hello \(name.isEmpty ? "there" : name) 👋"
-        content.body  = factOfToday(for: interests.isEmpty ? "Random" : interests)
-        content.sound = .default
+        let clampedDays = max(1, min(daysAhead, 64))
+        let calendar = Calendar.current
+        let safeName = name.isEmpty ? "there" : name
+        let safeInterest = interests.isEmpty ? "Random" : interests
 
-        var time = DateComponents()
-        time.hour = hour
-        time.minute = minute
+        for offset in 0..<clampedDays {
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: true)
-        let request = UNNotificationRequest(identifier: "dailyReminder",
-                                            content: content,
-                                            trigger: trigger)
+            let baseDate = calendar.date(byAdding: .day, value: offset, to: Date()) ?? Date()
 
-        center.add(request)
+            var comps = calendar.dateComponents([.year, .month, .day], from: baseDate)
+            comps.hour = hour
+            comps.minute = minute
+
+            let fact = factOfToday(category: safeInterest, on: baseDate)
+
+            let content = UNMutableNotificationContent()
+            content.title = "Hello \(safeName) 👋"
+            content.body  = fact
+            content.sound = .default
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+
+            let id = String(format: "dailyReminder-%04d-%02d-%02d", comps.year ?? 0, comps.month ?? 0, comps.day ?? 0)
+
+            let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+            center.add(request)
+        }
+        
     }
 }

@@ -41,6 +41,12 @@ struct SignupView: View {
                                 .foregroundColor(.gray)
                         }
                         TextField("Enter your name", text: $nameInput)
+                            .onChange(of: nameInput) {
+                                if nameInput.count > 10 {
+                                    nameInput = String(nameInput.prefix(
+                                    10))
+                                }
+                            }
                     }
                     .padding(.horizontal, 16)
                     .frame(maxWidth: 300)
