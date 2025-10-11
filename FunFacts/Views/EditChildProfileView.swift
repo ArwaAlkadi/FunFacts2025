@@ -329,6 +329,11 @@ struct EditChildProfileView: View {
             UserDefaults.standard.set(state.interests, forKey: "interests")
             UserDefaults.standard.set(state.avatar, forKey: "avatar")
             UserDefaults.standard.set(state.coins, forKey: "coins")
+            
+            scheduleDailyFunFact(name: state.name,
+                                         interests: state.interests,
+                                         atHour: 16,
+                                         minute: 0)
 
             dismiss()
         } label: {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-// MARK: - Avatar With Plus Button
+// MARK: - Avatar
 struct AvatarWithPlusButton: View {
     @EnvironmentObject var state: AppState
 
@@ -81,9 +81,7 @@ struct SignupView: View {
             }
             .navigationBarHidden(true)
         }
-        .onAppear {
-            scheduleDailyFunFact(using: state)
-        }
+        
     }
 }
 
