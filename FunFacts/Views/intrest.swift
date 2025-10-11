@@ -107,8 +107,6 @@ struct InterestSelectionView: View {
                                 state.interests = key
                                 UserDefaults.standard.set(key, forKey: "interests")
                                 
-                                scheduleDailyFunFact(name: state.name, interests: state.interests, atHour: 16, minute: 0)
-                                
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                     goNext = true
                                 }

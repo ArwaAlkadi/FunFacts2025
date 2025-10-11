@@ -41,7 +41,6 @@ struct SignupView: View {
                                 .foregroundColor(.gray)
                         }
                         TextField("Enter your name", text: $nameInput)
-                            .autocorrectionDisabled()
                     }
                     .padding(.horizontal, 16)
                     .frame(maxWidth: 300)

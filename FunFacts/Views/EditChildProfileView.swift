@@ -332,8 +332,8 @@ struct EditChildProfileView: View {
             
             scheduleDailyFunFact(name: state.name,
                                          interests: state.interests,
-                                         atHour: 16,
-                                         minute: 0)
+                                         atHour: 10,
+                                         minute: 5)
 
             dismiss()
         } label: {
