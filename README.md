@@ -3,13 +3,8 @@ FunFacts is an iOS app that delivers a unique daily fun fact through local notif
 It combines learning and entertainment in a colorful, engaging interface built with Swift and SwiftUI.  
 
 ## Overview  
-Users can create a profile, choose an avatar, and select an interest category such as Nature, Human, Random, or Lifestyle.  
-Each day, a new fun fact appears via notification — making learning quick, simple, and rewarding.  
-
-## Core Features  
-- Create your profile and pick your favorite avatar 
-- Receive daily fun facts through local notifications 
-- Share facts to earn coins and unlock new avatars  
+Users can create a profile, choose an avatar, earn coins by sharing facts to unlock new avatars, and select an interest category such as Nature, Human, Random, or Lifestyle.
+Each day, a new fun fact appears via notification — making learning quick, simple, and rewarding.
 
 ## Technical Highlights  
 - **Swift & SwiftUI** for a responsive and modern interface 
@@ -26,4 +21,5 @@ Each day, a new fun fact appears via notification — making learning quick, sim
 - Samar Alqahtani
 
 ## Note
-On iOS versions below 26, some UI/navigation elements (like certain back buttons) may not appear or function. This app targets iOS 26.
+This app targets iOS 26.0 (Xcode 16 runtime).
+On iOS versions below 26, some UI/navigation elements (like certain back buttons) may not appear or function properly.
