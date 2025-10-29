@@ -14,7 +14,7 @@ Each day, a new fun fact appears via notification — making learning quick, sim
 - **NavigationStack** for smooth navigation flow 
 
 # App Overview
-![Funfacts Overview2025](https://github.com/user-attachments/assets/07ce1e1c-45d9-42f3-80da-1349efb0462b)
+![Funfacts2025](https://github.com/user-attachments/assets/07bd884c-82bc-47a7-a50e-4bdf243ab32f)
 
 ## Developers  
 - Arwa Alkadi  
