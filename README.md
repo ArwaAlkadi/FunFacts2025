@@ -22,7 +22,3 @@ Each day, a new fun fact appears via notification — making learning quick, sim
 - Ghaida AlMughamer  
 - Najd Alsabi  
 - Samar Alqahtani
-
-## Note
-This app targets iOS 26.0 (Xcode 16 runtime).
-On iOS versions below 26, some UI/navigation elements (like certain back buttons) may not appear or function properly.
